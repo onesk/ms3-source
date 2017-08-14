@@ -1,0 +1,127 @@
+TODO
+
+1.3 completed
+- S5/FD RX7 OMP support/Generic PID support. (Ken)
+- Minimum RPM setting for A/C idleup. (Ken)
+- EGO looptime table with sensor delay setting.
+- Fuel cut changes based on RPMdot for bringing fuel back on. (Ken)
+- Boost sensitivity setting
+- Support calibration tables over CAN
+- Allow batch-fire during cranking (allow more fuel for cold starts)
+- Allow hardware frequency input to shaft speed
+- Two more VSS inputs
+- Refine dual+missing
+"Always start in wasted COP
+If poll level then prime tooth number from the cam level, but still run wasted
+Check the cam for a _number_ of cycle to ensure it is where it should be and isn't where it shouldn't.
+Keep running wasted until either
+-cam phase is looking good -> switch to true COP
+-cam is broken or a mess -> stay wasted COP and set CEL."
+- Allow TPS on Y-axis of VVT target tables
+- Understand/fix internal-knock "weird readings when cold" - (init validation added)
+- generic_swpwm_setup()
+- Convert other software PWMs to new method.
+- Feature to read out config error string over CAN
+- Fix Viper Gen 2
+- Flex fuel lag factor or noise filter.
+- Generic PWM as 1d curve with more points.
+- Allow stepper idle to optionally home fully open.
+- Allow for fixed pressure fuel systems with correction curve (or built in calc?)
+- Fuel pressure input (dedicated) for primary fuel. Send to outpc + secondary.  [partial]
+- Fuel temperature correction for primary fuel.
+- Fuel temperature (more than LPG)
+- Fuel pressure sensor calc (to monitor relative pressure)
+- Alternator Control (Ken/James)
+- "High power time enrichment"
+- Shift light per gear.
+- Oil pressure
+- Long term trim in DFLASH
+    - Added flash mechanism with redundant sectors (James)
+    - Populate RAM trim table (James/Ken)
+- Include flex% in crank PW calcs.
+- Resolve elaw slow start on 5cyl dual+missing
+- Idle enhancements. Replace min/max RPM settings with single input sensitivity
+  setting.  Refine/simplify PID engagement settings if possible. (Ken, P1)
+- MAF logger
+- TPS auto-zero all the time.
+- Coil testing for rotary trailing
+- Consider PF comments about VVT exhaust retard settings
+- Fix LTT crash
+- Bike shift cut timer granularity 
+- Apply Algorithmunits to all algos.
+- Idle VSS !=0 setting
+- Flex baseline eth%
+- Tool tips for everything where presently possible.
+- CL EGO 0/1 table or EGOcor authority table.
+- Delay overrun (!crank_ok)
+- Softer engagement of over-run.
+- AE type event at end of Overrun fuel cut
+- Buick C3I 'instant sync'
+- TPS auto-zero bug
+- fuel pressure control min/max duties
+- Allow 360 +-20 in trigger angle/offset
+- Trans-brake "bump box"
+- Make outpc variable size and allow TS to select what goes in.
+- Mac loader Kristian issue.
+- Add pseudo table to display pin -> feature usage.
+- hold-current for stepper idle
+- Power cycle required for VSS calib.
+- VVT minimum temperature
+- Overboost tolerance
+- VSS units
+- Allow up to 65535 ppm in VSS.
+- Crank PW taper vs. time
+- acab CAN broadcast
+- Tool tips for curves/tables when TS supports it.
+- Skip knock during launch/flat-shift
+- ground speed launch per PF.
+- overrun - smooth disengagement
+- Flyin' Miata 36-2 crank wheel for 99-05 Miata.
+- HD32-2 mode from MS2
+- MAF sampling (shauer)
+- other acab CAN items
+- possibly - complete engine logger. Record MAP, tooth, spark, fuel etc.
+- more i/o pins for PWM idle
+- specific boost targets per gear
+- Spark/fuel cut/retard per Wes' suggestions
+- split out idle valve type options
+- EGT ignore disabled channels
+- fuel pressure safety
+- BMW S54 wheel decoder for VVT - details on forum
+- double solenoids for BMW VANOS
+- Test mode to selectively disable fuel/spark
+- VSS out to 65535 ppm
+- Figure out flat-shift not activating.
+- Progressive fuel cut/return during overrun.
+- Integrate AFRsafety light with CEL. (Already does it.)
+- Integrate oil pressure with CEL. (Already does it.)
+- WI low fluid level
+- Bug with LTT when MAP > X gives zero PW.
+- outpc.mafv unsmoothed
+- Use field selector to allow any outpc variable for generic PWM
+- Investigate WCOP possible bug in poll-level code
+- Show all timing corrections in outpc.
+- CEL flash feedback
+- Nissan V8 VK56 (stim tested only)
+- VVT for QR35DE (untested)
+- VVT Hemi (untested)
+- Rover 4.6 decoder (covered by poll-level tooth)
+- ini mods to show what is impacting spark/fuel e.g. to help dyno ops and all users
+- implement unsigned flag in genPWM Yaxis
+- Jag XK8 4000 V8 - might work with poll level on tooth#8 and VVT teeth = 8
+- 36-2-2-2 VVT - waiting confirmation on cam pattern
+- Chrysler 2.2/2.5 sync/misfire issue - pasted untested code from MS2
+- outmsg
+- fix CANPWMs
+- Dwell vs. load/rpm
+- min/max limits for SpkAdj
+- consider 6/7 decoder
+- GPS capture
+- GPS into SDcard datalog
+- Crank PW taper as cycles vs. time
+- Check if software PWMs clash with I/O test mode. Tested. SW PWMs can be undefined on enabling io test. No simple workaround.
+- PWM idle warmup uses wrong curve at zero rpm. (running not cranking)
+- gen CL values changing when TS opened
+- Boost duty 100% at zero rpm?
+- Rotary trailing spark not cutting.
+

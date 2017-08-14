@@ -1,0 +1,77 @@
+$Id: ChangeLog-ms2,v 1.1 2012/11/06 12:51:23 jsmcortina Exp $
+
+Historical MS2 Changelog removed from main. These changes were from the MS2/BG code
+at the time of the first creation of MS2/Extra
+
+Version 1.000
+This version has all the basic capabilities of MS, but much higher precision -
+in the usec range. It adds larger tuning tables (12x12), WBO2, IAC, dual tables,
+and ignition control which assumes 1 coil and a mechanical distributor to
+distribute spark or EDIS for multicoil wasted spark.
+Version 1.100
+Made serial comms more robust: added one word read, write + verify commands,
+write to ram inhibit when overrun detection, receiver timeout check.
+Version 1.200
+Fixed various problems with trigger offsets ATDC (charge time can occur after
+input capture at very low rpms and other related ignition timing problems.)
+Version 1.300
+Changed tps, tpsdot units to % x 10; added accel tailoff algorithm.
+Version 2.000
+This version works with the CAN v3 pcb and has a template for CAN comms.
+Additional changes: increased input area to 4 x 512 byte blocks;
+inhibit coil charge 2 sec after turning ign key on;
+changed ports for FP, Idle (but connect to same pins on motherboard);
+knock ADC input in Vx100; all unused ports initialized as inputs.
+Made IACstart, PrimeP, CWU,CWH, AWEV,AWC,asecount ints instead of bytes.
+PrimeP,AWEV,AWC made function of initial coolant temperature.
+Expanded IAC control options for cranking plus switch to time based after
+start; added pulse tolerance inputs for cranking and after start; IAC
+option(5) to always enable stepper motor chip for 15 minutes after start,
+then revert to option 2.
+Version 2.100
+Added crank trigger mode.Ignition fires with only mech adv during cranking;
+added kpa to display outputs.
+Version 2.200
+Modified/ added ADC averaging: provided lag filter averaging for all
+ADC inputs (also for rpm). Relocated VE tables in anticipation of
+Block Learn Mode.
+Version 2.300
+Improved ego closed loop correction algorithms; flex fuel correction for
+alternative fuels; generic spare output ports;fixed logic error for IdleCtl=5;
+added fix to maintain coherence of inputs when changed thru serial port.
+Version 2.310, 2.320, 2.330, 2340, 2.350
+Fixed bug in ASE logic;set PW=0 in RevLimit mode;gcc compatibility changes;
+fixed bug in spare port hysteresis; changed some defaults; fixed bug in masking
+of TimerIn interrupts for dt/2; limited pw_open in case of battery spikes.
+Version 2.400
+Added automatic mixture control;mod to AE;expanded warmup inputs;
+moved DoOnStack to permanent ram;added option for 2 NBs;added knock
+retard based on ADC7 sensor.
+Version 2.500
+Added wheel decoding; added simple AE taper based on rpm;added time,% parameters
+to control tach input interrupt masking; 5 sec min for persistence of AS pulse
+tolerance; extended pulse tol range from 100 to 255.
+Version 2.510, 2.520, 2.530, 2.540
+Added fix to extend rpm range for wheel decoding; fixed AMC logic.
+Version 2.600, 2.610, 2.620, 2.630, 2.640, 2.66
+Added small model multi-page memory; added X-tau transient compensation; spark
+retard as function of manifold air temperature; added table fuel corrections for
+air density and barometric pressure; added spk retard correction for flex fuel;
+added injector test mode. Fixed bug in table burner; added ego volt outputs;
+shortened serial ISR time to expand wheel decoder range.
+
+MS2/Extra code branch by Ken Culver and James Murray
+Code split into files, more data pages, advanced wheel decoding, multiple spark outputs
+Add in AG's 2.36 stepper idle fix
+
+May/June 06 KC. Every tooth wheel decoder
+31 Aug 06  JSM. Cranking PW% and alternate option
+1 Sep 06  JSM. EGO2, FF, BARO2 can choose ADC ports (untested) Added start of 2nd trigger code
+2 Sep 06  JSM  Fixed memory.x and moved main into page 3d. Simplified PWM idle.
+3 Sep 06  KC. More wheel decoder fixes, make main loop not block interrupts for 
+nearly as long, add 32-bit calculation and timer capability for wheels with
+small numbers of teeth
+4 Sep 06  KC. Add Cranking advance, Cranking dwell, and fixed timing.
+Nov 06      First alpha
+lack of notes
+

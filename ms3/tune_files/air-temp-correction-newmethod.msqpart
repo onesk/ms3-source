@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<msq xmlns="http://www.msefi.com/:msq">
+<bibliography author="TunerStudio MS(Beta) 2.0.5d - EFI Analytics, Inc." tuneComment="" writeDate="Tue Oct 16 18:18:45 BST 2012"/>
+<versionInfo fileFormat="4.0" firmwareInfo="MS3 pre-1.2 alpha 2   20121015 01:21BST (c) JSM/KC ********" nPages="15" signature="MS3 Format 0255.004"/>
+<page number="0" size="1024"/>
+<page number="1" size="1024"/>
+<page number="2" size="1024">
+<constant cols="1" digits="1" name="matCorrTemps2" rows="9" units="°C">
+         -39.996 
+         -19.998 
+         0.0 
+         14.9985 
+         29.997 
+         44.9955 
+         59.994 
+         89.991 
+         119.988 
+      </constant>
+<constant cols="1" digits="1" name="matCorrDelta2" rows="9" units="%">
+         125.7 
+         115.8 
+         107.3 
+         101.7 
+         96.7 
+         92.1 
+         88.0 
+         80.7 
+         74.6 
+      </constant>
+</page>
+<page number="3" size="1024"/>
+<page number="4" size="1024"/>
+<page number="5" size="1024"/>
+<page number="6" size="1024"/>
+<page number="7" size="1024"/>
+<page number="8" size="1024"/>
+<page number="9" size="1024"/>
+<page number="10" size="1024"/>
+<page number="11" size="1024"/>
+<page number="12" size="1024"/>
+<page number="13" size="1024"/>
+<page number="14" size="1024"/>
+</msq>

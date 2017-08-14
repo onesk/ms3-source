@@ -1,0 +1,99 @@
+MS3 1.4 firmware
+Key changes and Gotchas - from 1.3.x and earlier
+======================= 
+1. Baro
+Previously the code used to divide by the barometer when calculating the fuel
+pulsewidth. If using an old tune you need to enable the "old style" baro
+calculation to enable the old behaviour.
+
+2. CLT rev limiter
+The TPS bypass rev limit setting has been removed, the standard hard limit is
+now used in bypass mode to reduce confusion.
+
+3. Closed-loop boost
+The initial values table is now a bias table. This needs to be tuned as an
+open-loop table using "setup mode" before enabling full closed-loop. See the
+tooltips and manual.
+
+4. On/Off outputs using bitwise AND
+The meaning of threshold and hysteresis has changed, see the manual.
+
+5. Other changes are covered in the Setting Up manual.
+
+Key changes and Gotchas - from 1.2.x and earlier
+======================= 
+1. Idle control settings re-arranged
+    Need to reset:
+        Stepper vs. PWM idle valve
+        Open-loop vs. Closed-loop
+        Output pin for PWM.
+2. Closed-loop idle control
+The settings are re-arranged to simplify setup, but existing users will need
+to retune.
+3. GM/TFI ignition settings changed.
+4. MAF configuration changed.
+5. VSS input configuration changed.
+6. Generic PWM output type and frequency selection changed.
+7. On/Off outputs enabling changed.
+8. Various tables now use "kPa" instead of "%", the numbers should be ok.
+9. VVT adds min/max duty settings, you may want to use them.
+10. Two TunerStudio dash indicators have been renamed:
+    Not Synced -> Not RPM Synced
+    Half-sync -> Half-RPM sync
+You will need to re-load you dash (right-click on a blank area of the dash
+select Load/Save, then Load dashboard, then Accept) or update manually.
+11. Rev limiting is changed. Check your settings.
+12. Some "trigger wheel" users may need to change their tooth#1 angle if it
+was close to 360deg or 720deg. (A previous bug was fixed.)
+
+
+Key changes and Gotchas - from 1.1.x and earlier
+======================= 
+1. MAF
+There is a new MAF calibration implementation like MS3. The old method is
+still valid.
+
+2. Baro
+The default settings for baro were on the MAP sensor calibration page
+as 147, -47 with a tweak curve on top.
+The new method sets these two numbers to zero and exclusively uses the
+adjustment curve. 100% means un-altered fuelling.
+
+3. Air-density
+In previous versions, there was an internal calculation for air density with
+a tweak curve on top.
+The new method exclusively uses the adjustment curve. 100% means un-altered
+fuelling.
+Note: MAT does change air density and the speed-density equation relies on
+this to estimate intake charge.
+
+4. Spark output polarity
+The name has been simplified
+"Going High" - was called "Going High (Inverted)"
+"Going Low" - was called "Going Low (Normal)"
+DOUBLE CHECK YOUR SETTING BEFORE CONNECTING COILS.
+
+5. Boost Control
+To make things more intuitive we have now changed the firmware so that
+- "Normal" is the most typical output polarity setting
+- larger boost duty% numbers mean more boost.
+
+If you are a new user starting out from scratch, then nothing needs to be
+changed, just use the default settings.
+
+If you are upgrading from a previous firmware version, then the Boost Output
+polarity setting will be the opposite. For most users it will now be "Normal".
+This is true whether using open- or closed-loop boost control.
+
+If you're using closed-loop, nothing else should need to change.
+
+Open loop boost users most likely need to set their table so that:
+new_cell_value = 100 - old_cell_value
+
+Remembering that more duty = more boost.
+
+6. Serial protocol
+The firmware now uses the "newserial" protocol. This requires
+compatible tuning software and firmware loaders.
+(Note, it you want to revert to an older firmware version you will need to use
+the new firmware loader, or use the boot jumper.)

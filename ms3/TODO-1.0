@@ -1,0 +1,183 @@
+$Id: TODO-1.0,v 1.1 2012/04/02 11:25:53 jsmcortina Exp $
+TODO
+
+1.0
+
+James:
+Planned for 1.0
+Overdwell broken
+
+Both:
+Range check EVERYTHING.
+
+Might be non-issues
+- Figure out CRC issue (waiting on TS to handle celsius correctly)
+- (BUG)Review Wes' high rpm sync loss
+- Investigate noise filters relating to issues Wes spotted (not sure now)
+- Remove unused bytes from outpc
+
+Done:
+- Investigate "feature3" still controlling injector sequence, but no ini settings
+- IAT should be ignored with MAF only
+- PID idle after crank not doing anything when RPM > open RPM?
+- Why isn't reqfuel getting recalculated properly when alt->simult changed
+on the fly?
+- Steps gauge drops to 0 with warmup IAC after crank.
+- MAP accel triggers when set to 100% TPS? (unable to reproduce)
+- Add MAP PID lockout adder to AC idleup.
+- Add idle fuel table.
+- Add an idle mode to ITB mode so that people without much vacuum on idle
+won't get switched to alpha-n when the throttle is closed.
+- Fix semi-seq on standard outputs. (Caveat: some configs that don't make sense
+                                     are now config errors)
+- Dual fuel/table support for various outputs
+- Make Dual Fuel options 1/3 work.
+- Make secondary injection on v3 selectable between simultaneous and
+- Make using V3 for secondary injectors on <= 4 cylinders an option.
+- Forward-port rob's interpolation work.
+- staging on untimed ms3x outputs
+- Semi-sequential staging.
+- Trim on untimed ms3x outputs
+- EGO>2 on untimed MS3X outputs
+- Add gear-based boost control. (4)
+- Boost control improvements.
+- Wider range for rotary negative split.
+- VVT (open loop)
+- Staging to allow 8 channels primary and use bank 1 and/or bank 2 as second and possibly third stages. (In progress)
+- Sequential Staging (2)
+- A/C/fan input / output (1)
+- Commonize as much generic IO as possible. (NEEDS TONS OF TESTING)
+- Bug fix for last-value on idle getting set during ramp to target.
+- ITB load mode (NEXT: 3 KWC)
+- Merge MAF (NEXT: 2 KWC)
+- Make EAE work with staged injection (UG mode).
+- Make lower bound for boost control selectable.
+- Make EGO delay after startup configurable.
+- Integrate VSS with idle speed control code (NEXT: 1 KWC)
+- Revisit MAP sampling (Appears to be working fine)
+- Non-linear battery voltage correction
+- Non-linear injector pulsewidth curve
+- Add variable RPM launch based on potentiometer input
+- Drag racing features (time-based boost/nitrous, switchable boost tables) - any more ?
+- IAC/PWM test mode
+- Merge any recent changes from ms2/extra
+- Regular AE on with EAE.
+- Improve rev limiters
+- Changing ReqFuel on the fly stopped working
+- "AFR safety"
+- Fuel +/- in launch
+- Negative nitrous fuel addition
+- MAT/CLT MAT calcs
+- Regular AE in % of req_fuel instead of ms.
+- Dwell per spark output (rotary using different coils)
+- Merge X-tau (WEEKEND: KWC)
+- VSS input
+- Progressive nitrous
+- ReqFuel/AFR/Stoich switching (dual fuel)
+- VSS (Gear) dependant boost
+- Water/meth injection
+- Add new staging duty mode
+- Initial port states
+- Ensure "time after spark" is working (appears ok, need KG confirmation)
+- Investigate PW difference between MS2 and MS3
+(JSM investigated at one set point. 36-1 V8 w/s, 2 alt, 8 inj, RF=10, CLT=102C, MAT=23C, Fuelload=102.8% VE1=92.9%
+EGO disabled, BattV=12.9V. Getting over 100us jitter with "steady state" inputs.
+ Approx 30us 0.3% difference noted, but range of PW jitter overlapped between MS2 + MS3. )
+- Move stream code to PIT section for 8kHz sampling
+- Compressed file download from SD card (needs field testing)
+- CRC32 data check 'k'
+- Fix sync/no-sync/sync run on startup
+- CAN passthrough and device2device concurrency
+- Add semaphores to all output ports that can use injector or spark pins
+- Move "upgrade" LED spark outputs to XGATE
+- Move dwell to XGATE
+- Move rotary trailing spark and dwell to XGATE
+- MS3X rotary trailing
+- Scaled VSS pulse output
+- Fix 6/7 mode
+- Merge NGC 2.2/2.4 cam code
+- Cam sync with EDIS
+- Fix Fuel Only
+- SD card speed test utility
+- Test out compiler stuff (udivsi32) - _seems_ ok.
+- Re-code AFRsafety to use delta-AFR table
+- 32bit VSS CAN support
+- Fix delete file in sd_sync (FAT getting messed up)
+- Support SD cards without partition table
+- Fix remote tuning of MS3 via CAN
+- Optional sensor inputs/transforms
+- Better 1,2,3 cylinder support (underway)
+- Rewrite 'Basic Trigger', 'Trigger return', 'Twin Trigger' more like MS1
+- Adaptive spark cut for launch/flat shift.
+- Spark trim
+- Gear detection
+- NGC 8cyl cam sync
+- XGATE "CRASH"
+- Investigate added fuel during launch
+- Tested serial timeout and reset. Seems ok.
+- validate odd-fire even wheel
+- Remove WCOP
+- Recode rpmdot slightly.
+- Convert VSS to SI units
+- Recode vssdot based on rpmdot code
+- sliding window average of MAT, CLT, Battv
+- Port YZF1000 and 32-2 from MS2/Extra
+- Bike ignition cut
+- Use generic_IO for water, vssout
+- More testing on generic PWM outputs inj1+2 (seem ok)
+- Support CRC32 via CAN 
+- (BUG)Flood clear issue on inj1+2
+- Check 60-2 sync issue PhilT reported. Replicated and fixed - noise filter high rpm resync problem.
+- (BUG)ADC input for stream logging (ini error)
+- (BUG)PT4 does not work for shifter output.
+- (No fault found)ADC7 is pulled low all the time (turbo355 GPS sensor ) 
+- Support multiple widebands and sequential using arrays (Done, but needs a lot more testing)
+- Check spark trim mapping correct (it is)
+- (BUG)AFR2 ADC12 input? (Fixed then immediately deleted!)
+- When staging, firing order not applied to trim
+- Dual fuel - tons of parameter switching
+- Add "all the same opening time" for MS3X inj.
+- Dual fuel - fuel temp/pressure sensor adjustment
+- Switchable overboost limits
+- (BUG) Investigate serial/table corruption (added verify step, added range check to tooth loggers) believed fixed.
+- Trigger wizard / live tooth#1 angle adjustment
+- Temperature units on generic PWM.
+- GM HEI bypass on MS3X SpkB.
+- Add more pins for knock in
+- Dual+missing only to use cam during sync phase
+- Trigger wizard and EDIS
+- Investigate correct behaviour of "bank" settings for nitrous and launch (look ok)
+- CAN extended input pins
+- Test/fix CAN i/o recently added - works as-is.
+- CAN PWM outputs
+- Add CANIN / CANOUT to ac idle and fan control
+- RTC support with SD
+- Combine EDIS noise filtering with normal menu.
+- AFR table switch with N2O
+- EGT overtemp action (settings already exist)
+- SD handle invalid file read (err 11)
+- SD error flash codes
+- More boost control frequencies (mid range matches idle list)
+- Add status indicators for all features where poss
+- Investigate VE1 corruption issue
+- Investigate serial robustness
+- Re-added Wasted-COP during start in COP and optional all the time.
+- Launch input polarity vs. nitrous pin
+- Launch input polarity vs. a/c up
+- SDcard - review error handling so it doesn't get stuck in a loop.
+- Handle Teg's cards
+- Wasted to COP transition can leave outputs stuck for a rev (believed ok)
+- Add VSS support for turning off the fan if it's on at high speed.
+- AC idleup turns on e-fan below certain VSS speed, turns off AC above 
+  a specific load/throttle position.
+- SD card work
+- SD-log LED to support full range of outputs
+- Nissan QR25DE
+- review for SANdisk issue
+- Inj1 + 2 as boost
+
+Rejected:
+- Allow thermistor and O2 table burning while engine runs (pointless - these tables are critical so running with them wrong is just bad)
+- Variable software PWM frequencies for boost/idle etc
+- Use keyboard interrupts on select VSS inputs
+

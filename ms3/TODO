@@ -1,0 +1,106 @@
+TODO
+
+1.0 completed items now in TODO-1.0
+1.1 completed items now in TODO-1.1
+1.2 completed items now in TODO-1.2
+1.3 completed items now in TODO-1.3
+
+TODO for:
+
+1.4
+
+Pushed back to 1.5
+James
+- Perfect run VSS + RPM at same time + general TC review (include Alex if poss.)
+- "Barton" wheel decoder issues (awaiting feedback)
+
+Ken
+- Add engine states, change features that need it to use it. (Ken, started)
+- Boost wastegate dome control (Ken, in progress)
+- Possible A/C/Fan changes - See requests from rx7club (Ken)
+- Understand why very retarded ignition causes weirdness in some wheel modes.
+- Allow greater trigger angle tweak (currently +/-20) Needs testing after change.
+Both
+- Investigate possible race condition on VVT tooth decoding. (Poss fixed pending feedback.)
+
+2.0
+- New ReqFuel
+- Add angle clock (Ken)
+- Rudimentary pre-emptive multitasking (Ken)
+- Lambda
+
+For review:
+- EGO backpressure correction table/curve.
+- Consider more Nissan CAS modes
+- Inj dead time test mode. Swaps from seq to two pulses in quick succession (to maintain inj timing) (James, P8)
+- MAF burnoff
+- Monitor/graph 'trigger' time to monitor power per cylinder.
+- Gear/speed related timing
+- Multi-spark
+- Boost limited by CLT
+- Baro based timing adjustment
+- SD card format utility
+- "Capture" mode to monitor and capture PW, spark timing, inj timing, VVT timing from engine running on other ECU
+- Baro from WOT?
+- WUE vs. RPM (if required?)/fuel vaporization instead?
+- Rehome stepper idle on close (to avoid losing steps.)
+- VE curve (experimental)
+- Consider: fast PID on timing, slow PID on idle-valve pos
+- More tri-tach options if possible
+- Audi flywheel mode (James, P2 - awaiting more testing)
+- Allow different PT pins for triple trigger.
+- Race profiles (can include boost) to alter launch, nitrous, boost per user input.
+- Idle valve operation during overrun - already covered in CL?
+- CAN extension stuff from Reverent - perhaps?
+
+Done:
+- 36-2-2-2 H6 application (initial)
+- NGC 6cyl cam sync - decoder done and phasing confirmed
+- CAN broadcast zero packets
+- Nitrous + launch
+- Linelock staging
+- Suby H6
+- Output to start Go-Pro when SDcard datalog starts.
+- Allow kPa to trigger SDlogging
+- Advanced setting to flip cam input polarity for hardcoded modes.
+- CAN turbo vane control
+- EGO sensor response time scaling.
+- Nitrous/fuel solenoids - different software PWM frequencies
+- Fix corruption of data for raw 'A' when Megaview units are set to degC.
+- Add own wheel mode for Suby VVT
+- Add max MAP condition to nitrous (during launch)
+- Sequential shift cut fuel also
+- Pit lane limiter
+- Flex ideas from Ben:
+    Here are the tables that I think we need to blend based on FLEX% to make the flex function work correctly:
+    cranking pulse
+    afterstart enrichment
+    warmup enrichment
+    accel enrichment
+    boost / overboost
+    AFR table
+    VE table
+    Spark table
+    * Some of these already exist, might be better to offer one blend for them all and a single master selector.
+- Secondary AE for dual fuel also.
+- Flex fuel sensing issues? Ref: AbeFM report on forum.
+- Traction light output
+- Consider more points in timed retard after launch (customer after 5 more)
+- Progressive nitrous vs. MPH
+- Extend size of progressive nitrous curve (10 points?)
+- Variable tacho output
+- Allow all available output pins to be controlled in i/o test mode.
+- Traction Nitrous input pin polarity.
+- Set all digin pins to respect Nitrous polarity.
+- Respond to EGT per channel (James, P8)
+- ALS throttle bumper always on.
+- See if over-run transition is possible with staged injection (perhaps check for staging not being active)
+- Respond to knock per-channel (awaiting feedback)
+- Complete "loop" i/o feature.
+- CAN passthrough corruption? (See pre-1.4 alpha1 topic.)
+- Allow BattV and generic sensors to still work in test mode.
+- Ford Coyote (in progress)
+
+Rejected:
+- Transient timing
+- launch delay boost ought to be applied before duty is applied to output variable (Don't believe this is an issue.)

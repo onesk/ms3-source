@@ -1,0 +1,852 @@
+$Id: ChangeLog,v 1.1264 2014/03/09 23:33:36 jsmcortina Exp $
+
+MS3 CHANGELOG
+=============
+
+HEAD/1.3
+
+2012-12-22 JSM
+Timed open-loop boost fix.
+Fix knock (version checking logic error)
+
+2012-12-23 JSM
+Comms failure with internal knock module sets CEL
+Only check battery after 5 seconds of runtime
+In accelpump mode, still calc outpc.tpsaccel for user interface.
+Add PPAGE F2 and re-arrange functions to use it.
+
+2012-12-28 JSM
+Fix overflow in flex% calc
+Fix sensor16 on MS3.
+Support ECU temp sensor in MS3pro.
+
+2012-12-30 JSM
+Improve dutycycle calcs in ini
+Idle VE naming in ini
+Remove non-functioning "green dots" from some curves. (DF + Tract.)
+
+2013-01-13 JSM
+Various ini tweaks.
+Allow testmode via CAN.
+CAN tweaks.
+Serial side of 'f' and 'h'
+Get serial+CAN 'f' working.
+
+2013-01-15 JSM
+Calibration tables now use 'w'. TS 2.1.13+ REQUIRED
+Remove 't' command.
+Revised MSG_PROT to allow long or short format
+
+2013-01-16 JSM
+Automatically scan CAN network for protocols.
+memset outpc.
+Add internal MSG_REQX CAN command.
+Some code re-arrangement in CAN.
+Calibration tables over CAN. Commonised somewhat with calibs via serial.
+
+2013-01-17 JSM
+Update firmware loader to support MS2 newserial.
+Tooth loggers working over CAN.
+Updated loaders
+
+-- Alpha 1 --
+2013-01-19 JSM
+Disable CAN MSG_PROT auto-broadcast for now, causing problems.
+
+-- Alpha 1a --
+2013-01-23 JSM
+Improve "poll level" re-sync.
+Ensure re-sync checks happen at high-speed re-sync during running.
+Cleanup unused variables.
+
+2013-01-25 JSM
+Improve serial out of range size+offset test. 
+Same for CAN.
+Test code to allow swapping batch/semi/seq.
+Re-arrange outpc for more optimised reads.
+Allow every-event cranking transitioning to seq.
+
+2013-01-26 KWC
+Fix Rotary COP mode so that it doesn't require the FC/FD selection.
+
+2013-01-27 JSM
+Newserial trap for out of range 'size' header.
+Support hardware timer input for shaft speed. Allow up to 650,000rpm. Allow fractional tooth numbers.
+Add VSS3 and VSS4. Re-arrange VSS page.
+Shaft speed now used summed calculation like VSS.
+
+2013-01-29 JSM
+Remove SERIAL_TIMING debug code
+Resolve potential bogus initial rpm during cranking.
+Re-write cam-sync method for dual+missing and poll level.
+Allow VVT table Y-axis to be TPS
+
+2013-01-30 JSM
+Default VVT duty set so that outputs are off when inactive.
+Don't report config error if log crank+cam and VVT enabled.
+Ensure Knock control initialised correctly.
+ini tweaks
+Implement can_err_cnt to detect dead devices.
+
+2013-01-31 JSM
+Add sanity check in gen_pwm rtc code to prevent infinite loop.
+Fix genpwm/ALS
+Support more frequencies in generic PWM.
+
+2013-02-02 JSM
+Optimise overdwell interrupt code. (~4% reduction in time)
+
+2013-02-03 JSM
+Minor optimisation in map sampling RTC code.
+
+2013-02-04 JSM
+Add in BMW/Siemens CAN broadcast messages from Peter Florance
+Finish off ini changes for Gen PWM freq changes.
+
+2013-02-11 JSM
+generic_swpwm_setup()
+ALS PWM has own channel
+Move slow WI PWM to new PWM system.
+Move boost1+2 slow PWM to new PWM system
+Set too-cold O/L boost duty to zero.
+Allow swpwm to flip two pins.
+Convert nitrous PWM to new PWM system.
+
+2013-02-17 JSM
+ini greying for OL boost open/close duties
+Optimisations in compress C/ASM and crc32.s
+Optional SDcard readback timing. (currently enabled)
+Allow any SCI baudrates.
+
+2013-02-20 JSM
+More SDcard readback optimisations
+SCI baud switching commands
+Allow config error message to be read back. (r <canid> 07 04 00 00 ff)
+
+2013-02-21 JSM
+RPM/TPS triggers to start SDlogs.
+Option to light CEL until fully running.
+
+2013-02-27 JSM
+Fix Viper gen2 decoder (resync)
+
+2013-02-28 JSM
+Allow variable frequency on generic PWM outputs.
+Reduce inprecision at higher frequencies by half a timer tick.
+checkforpit0() to help flex.
+Flex sampling changes to smooth outputs.
+Mainloop time averaging (dev use only.)
+Gen PWM curve option. (UI incomplete) Make load axis *1 instead of *0.1
+
+2013-03-01 JSM
+Gen PWM UI update from PT. Requires TS >= 2.1.31
+SDcard debug code.
+Resolve stepper idle not moving to cranking position in flood clear mode.
+Allow stepper idle to home to open position.
+ini tweaks. Requires TS >= 2.1.32
+
+2013-03-02 JSM
+Honda K24A2 as TSX offset by 40 degrees
+
+2013-03-03 JSM
+Minor stepper IAC warmup change.
+
+2013-03-12 JSM
+Allow 129 teeth / 6cyl in tri-tach. Untested.
+Experimential staged injection relay output.
+
+2013-03-15 JSM
+Staged inj relay polarity flip.
+
+2013-03-17 JSM
+Add int_sqrt32() function.
+Start of fuel pump/pressure code.
+Implement fuel correction for GM fixed rail.
+Implement OL PWM fuel pump control. (Limited bench testing, normal FP control re-written too.)
+ms3loader change for enter_boot_command
+
+2013-03-20 JSM
+RTC idle bugfix.
+Tiny speedup to init code.
+Allow a gradual transition even with relay staging.
+Stepper idle homing changes from MS2.
+Apply cranking idle position when not running (instead of waiting until actually cranking.)
+
+2013-03-21 JSM
+Get rid of motor_reset
+Show programmable on/off outputs in i/o pins list.
+
+2013-03-24 JSM
+EAE combi window. (testing.)
+SDcard log FAT allocation bugfix.
+
+2013-03-25 JSM
+Alternator UI.
+
+2013-03-27 JSM
+Fuel pressure/temperature.
+-fuel_sensors()
+-add pri temp/press corrections
+-add outpc data for pri/sec temp/press
+First draft of alternator control code. Most open-loop functionality in place.
+
+2013-03-28 JSM
+Add closed-loop fuel-pump and alternator.
+
+-- Alpha 2 --
+
+2013-03-30 JSM
+Fix int/uint comparison on log_trig_tps
+
+2013-04-02 JSM
+ini ranges for on/off outputs
+MAP sample false error
+
+2013-04-03 JSM
+ini tweaks for idle
+Alt control. More code for lamp output. More code for on/off mode.
+pwmidle_dp_decay_factor defaults to zero
+Pre-relay output for staging flaps.
+
+2013-04-04 JSM
+High power time enrichment.
+Specific shift light incl. gear based
+HPTE limits time to max in curve.
+
+2013-04-05 JSM
+Move glob_sequential initialisation to fix Subaru seq error.
+ASE ini curve fix.
+First draft LTT front end.
+
+2013-04-06 JSM
+Anti-lag correct input polarity on Nitrous-in pin.
+Add fuel-pressure and alternator control fields to datalog.
+Alternator TPS WOT wasn't signed.
+
+2013-04-07 JSM
+Remove "IAC cold position" feature. (Nobody understood it.)
+Calculate Flex adjustment before starting too. Only calc flex on each pulse.
+gen_pwm default Y axes /10 to match scaling.
+Oil pressure monitoring.
+Updated loaders to 3.26
+
+-- Alpha 3 --
+
+2013-04-11 JSM
+Enable additional gcc warnings and address them.
+Don't try to start wasted-COP on dual+missing for 3+ odd cylinders
+
+2013-04-13 JSM
+Fix page 0x7f CRC calc. 
+Rename AWC, AWEV
+Flex% alters cranking PW.
+Apply generic sensor naming ini file patch from PT.
+
+2013-04-14 JSM
+User settable fuel flow/economy calc interval
+
+2013-04-19 KWC
+Fix bug elaw found in idle where in certain circumstances, the the ramp to
+target won't ramp.
+Add PID sensitivity setting, get rid of several redundant or confusing settings
+and do general cleanup of CL Idle.
+
+2013-04-19 JSM
+Reduce alternator PID sensitivity.
+
+2013-04-20 KWC
+Get PID sensitivity slider working, and non-linearity curve.
+Still need to make it so adjusting sensitivity doesn't change duty.
+
+2013-04-23 JSM
+MAF logger and re-arrange some bits in flagbyte0
+Fix CRC32 on calibration pages.
+Apply some ini extensions from PT.
+TPSautozero all the time (if on)
+
+2013-04-24 KWC
+Make it so adjusting alternator PID sensitivity doesn't change the output
+duty.
+
+2013-04-24 JSM
+Resolve 1-cyl 2-stroke fuel output issue.
+Rotary trailing spark works in test mode.
+VVT allows exhaust to use a table of retard angles.
+
+2013-04-26 JSM
+Different implementation of VVT exhaust retard.
+Add 80 more tooltips
+Add ram27
+
+2013-04-27 KWC
+Add several tooltips for boost control and closed loop idle.
+
+2013-04-29 JSM
+Fix issue with zero PW during cranking in certain configs (egocor)
+
+2013-04-30 JSM
+Get Megaview working again (special case in serial range check)
+
+2013-05-08 JSM
+Fix LTT crash (only happened when first turned on and engine already running.)
+Sort out RTC 10ms timer (observed as Seq-shift-cut problem)
+
+2013-05-09 JSM
+ini tweaks so fuel/spark/afr/eae tables show actual load axis units.
+CL idle minvss setting
+tool tips for sequential shift
+Add hundreds more tool tips
+
+2013-05-10 JSM
+Add hundreds more tool tips
+Fix potential bug in flex fuel timing addition.
+Baseline ethanol% in flex-fuel.
+
+-- Alpha 4 --
+
+2013-05-12 JSM
+On/off outputs allow negative thresh/hyst
+
+2013-05-15 KWC
+Start adding boost sensitivity slider
+
+2013-05-16 JSM
+Update ini to show "indicators" using decimal bitmasks. (This change got lost)
+Allow 2JZ mode for 8 cyl. Angles are an untested guess.
+
+2013-05-20 JSM
+Implement EGO authority table.
+Don't allow overrun immediately afterstart (untested.)
+Fixes to LTT. Allow it to work on a fresh flash. Change auto-burn behaviour.
+
+2013-05-21 JSM
+Re-write overrun fuel cut. Implement gradual retard and AE-event on return.
+Re-arrange GM HEI,GMDIS, TFI mode options.
+Add mode for C3I that should sync faster.
+Experimental code to record time per cylinder event as %age.
+
+2013-05-22 JSM
+Disable over-dwell mode with fixed-duty dwell.
+In next-cyl basic trigger, ensure coil is fired AT trigger always.
+Apply correct bitmask to ram4.dwellmode
+
+2013-05-25 KWC
+Add boost control sensitivity code. (UNTESTED)
+
+2013-05-29 JSM
+Add boost duty to datalogs.
+Rename SDcard "insertion" to "always"
+Test code for SDcard baud rate. (Will be removed later.)
+Revert "TPSautozero all the time (if on)"
+
+2013-05-30 JSM
+Work on implementing multi-block write for SDcard, but backed it out as one card tested cached too much data.
+
+2013-06-01 JSM
+Small code re-arrangement with cam init.
+Fix PT5 Nissan CAS / tri-tach input bug.
+Apply off/min/max duties to FP control.
+Allow 360 +-20 in trigger angle/offset to swap phase on custom decoders.
+
+2013-06-01 KWC
+Fix up defaults for boost control sensitivity.
+Fix potential overflows in boost, alt ctl, and FP ctl.
+
+2013-06-01 JSM
+Allow transbrake to work w/o launch or to share launch input. Respect polarity on 'nitrous' input.
+Turbo Car Staging.
+
+2013-06-02 JSM
+Ungrey VVT exhaust tables.
+
+2013-06-03 JSM
+Loader tweaks for Mac
+
+2013-06-05 JSM
+Selective realtime data reads. 'g'. Not yet enabled in ini.
+Add "TurboBaud" section to ini. TS now supports it.
+
+2013-06-08 JSM
+Update init to show allocation on all common pins. Fix lack of config error on MAP.
+Allow TS to read 'portusage'
+Extend ini file so TS can display usage of I/O pins. (MS3 names only)
+Re-arrange pins by feature dialogue.
+Make 'g' feature into 3 bit size.
+
+2013-06-09 JSM
+Add MS3-Pro names for I/O pins 
+
+-- Alpha 5 --
+
+2013-06-20 JSM
+Help entries for curves and tables. Believed that everything has a tool-tip entry now.
+
+2013-06-28 JSM
+Multi-period MAP sampling bugfix.
+
+2013-06-29 JSM
+Update ini per PT for scattered realtime data and portusage.
+Update ini to show "indicators" using decimal bitmasks. (This change got lost)
+Update ini for dual-fuel pressure limits.
+Tweak a few defaults.
+
+2013-07-03 JSM
+Fix VSS2 digital sampling
+
+2013-07-04 KWC
+Add variable re-engagement of fuel based on RPMdot for overrun fuel cut.
+(Untested).
+
+2013-07-06 JSM
+Megaview temp units conversion
+
+2013-07-11 JSM
+Sequenced batchfire bugfix (alienblood issue)
+
+2013-07-12 JSM
+Implement hold-current for stepper "moving only"
+VVT minimum temperature
+Overboost tolerance
+Remove MPH and METRES from Project Properties, now set in Gauge/Settings limits.
+Re-do ini entries for VSS to use calculated unit names per PT
+Re-de ini entries for wheel dia likewise.
+Allow VSS PPM upto 65535 (untested)
+Rationalise setting of ENGINE_CRANK (was applied in some wheel modes)
+Implement crank pulsewith taper curve
+
+2013-07-13 JSM
+Add/fix two CAN broadcast messages.
+Optionally ignore knock during launch/flatshift
+
+2013-07-14 JSM
+Remove EXPANDED_CLT_TEMP from Project Properties, now set in Gauge/Settings limits.
+Add wheel speed based launch control.
+
+2013-07-15 JSM
+Add Miata 36-2 wheel mode
+
+2013-07-16 JSM
+Add min/max DC limits to VVT
+Fix 0x561 naming in ini
+
+2013-07-17 JSM
+Smoother disengagement of overrun.
+Add VVT slew feature
+
+2013-07-21 JSM
+Re-arrange generic_digout options and include Spk A-H. (CANPWMx still needs checking)
+
+2013-07-22 JSM
+Tweak code order for VSS setup. No functional change.
+
+2013-07-31 JSM
+Allow fractional teeth for VSS.
+ini fixes. Widen lower calibration points on batt, map. Ungrey wheel diameter for VSS/RPM
+SDcard speeds / monitor version.
+Tweak to map_local
+
+2013-08-01 JSM
+Correct interrupt masking for VSS2 with 32bit CAN PWM
+
+2013-08-02 JSM
+Port HD32-2 from MS2.
+Implement skipdwell, skipinj.
+Changes to MAP-phase sensing.
+
+2013-08-03 JSM
+Fix MAP/MAF loggers. (Earlier RTC optimisation caused problem.)
+Change MAF sampling to event-average always.
+Allow MAP sensor to be disabled.
+Minor formatting change of config error message strings.
+Add more CAN broadcast for Alfa/Lancia/Fiat (untested)
+Add "Engine Logger" for diagnostics.
+
+2013-08-04 JSM
+More pins for PWM idle. (Uses generic setup.)
+More formatting changes to config error message strings.
+Allow PWMidle to be off during KOEO.
+
+-- Alpha 6 --
+
+2013-08-04 JSM
+BMW S54 cam decoder. (untested) (Also touched sync method for dual+missing.)
+Specific boost targets per gear.
+Removed erronous debug code clobbering sensors1-5.
+
+2013-08-07 JSM
+Re-arrange launch/flat-shift activation code and implement flat-shift minimum VSS
+Correct code checking for VSS available.
+
+2013-08-08 KWC
+Start of EGO looptime code (.h files mainly).
+
+2013-08-08 JSM
+Re-work rev-limiting incl. launch/flat-shift/overboost.
+-Implement random progressive spark cut
+-Implement non-rotational fuel cut
+-Streamline settings
+
+2013-08-09 JSM
+Toothed wheel wasn't switching to Full-sync (typo)
+Re-arrange/re-name idle control valve/algorithm settings.
+ini tweak
+Ensure "off" EGT channels really are.
+Implement fuel pressure safety
+Fix a bug from the 8th in AFRsafety that didn't cut spark.
+
+2013-08-10 JSM
+Bugfix for semi-seq 100% duty. (nismoautoxr)
+Implement BMW S54 3-wire solenoid outputs.
+
+2013-08-12 JSM
+In S54 mode, VVT test operates both paired outputs.
+
+2013-08-13 JSM
+LTT was interfering with table blending.
+Swap phase on Viper Gen1. (turbo355)
+spk/inj dropping testmode
+36-2-2-2 with cam - tougher resync check at and just after start
+
+-- Alpha 7 --
+
+2013-08-18 JSM
+Change scaling on vss_out to whole numbers to allow up to 65535ppm
+
+2013-08-20 JSM
+Fix 710.1deg tooth#1 angle bug (Teg)
+Comment out dupe code and initialise mid_last_tooth
+
+2013-08-22 JSM
+Add hyst to launch fuel-cut.
+Only use boost tolerance in closed-loop.
+Fix 32bit fields in qfrt
+
+2013-08-30 JSM
+Ensure CL idle target is looked up when not in CL mode too and curve ungreyed.
+Ensure CL idle target is reported always and includes taper.
+Ensure C2R taper works (sensitivity change altered behaviour.)
+Add gauge for CL idle target.
+Fix slow startup of VSS calcs.
+Fix flat-shift advance / minvss
+Overrun - progressive fuel cut/return
+
+2013-09-01 JSM
+Loader version 3.30 can use detected hardware type.
+Added 'M' serial command to return MONVER.
+
+2013-09-01 KWC
+Added tooltips for new overrun fuel cut RPMdot based fuel return.
+
+2013-09-02 JSM
+Improve serial handling of noise/interference/corrupt data on one channel (MS3-Pro)
+
+2013-09-03 JSM
+Overrun progressive tweak
+On-the-fly 1024 MAF transfer curve.
+
+2013-09-04 JSM
+Sum mafflow in isr (per S.Hauer work)
+
+2013-09-06 JSM
+Fix minor error in ini for mafflow.
+Ensure negative summed MAF doesn't underflow.
+ini tweak for SDcard console
+
+2013-09-07 KWC
+Add EGO delay table.
+
+2013-09-07 JSM
+Re-do BMW S54 VVT mode.
+Fix bug with hold-duty that prevented higher VVT channels from calculating.
+
+2013-09-09 JSM
+Add fueltemp_cor, fuelpress_cor, ltt_cor to outpc.
+Use correct signed interpolation routine for LTT lookup.
+
+2013-09-17 JSM
+Change WI fluid low to interact with AFR safety as EGT does.
+Fix potential fuelcalc overflow in LTT 
+
+2013-09-19 JSM
+Change TPS behaviour on CEL
+maf_volts reflects instantaneous MAFv, not averaged.
+Gen PWM can use field selector. (Mostly TS feature.)
+
+2013-09-20 JSM
+Disable sharing ADC0 in generic_adc_setup
+Clear options to disable MAP and MAF sensor inputs.
+Clarify MAP/baro page.
+
+2013-09-22 JSM
+ini fix. vetable4 uses fuelload2
+
+2013-09-25 JSM
+Gen PWM more ini changes
+
+-- Alpha 8 --
+
+2013-10-08 JSM
+s19tail.inc preserves flash25,27,LTT also
+
+2013-10-12 JSM
+Add tc_retard, cel_retard, fc_retard, ext_retard to outpc.
+Clean up WCOP handling for dual+missing.
+
+2013-10-13 JSM
+Add  base_advance, idle_cor_advance, mat_retard, flex_advance, adv1-4
+ revlim_retard, als_timing, als_addfuel to outpc
+Ensure ALS sets timing and addfuel to zero when off.
+Fix bug where idle-assist timing timer didn't work.
+ext_retard -> ext_advance
+Add fuelcalc and sparkcalc summary pages to TS.
+portb wasn't showing in PORT_STATUS correctly.
+
+2013-10-14 JSM
+Add bitmasks to gen PWM field selector variables.
+
+2013-10-15 KWC
+Add config data for generic PID.
+
+2013-10-16 JSM
+sci_baud actually sets lower rates (typo)
+PW4X shown in status8
+
+2013-10-18 JSM
+Expose more internal spark calcs and set lsum in main.
+Reduced CANMSG to 10 to solve stack overflow.
+Implement CEL flash codes and other CEL code changes.
+
+2013-10-19 JSM
+Add stepper idle in/out cycle test.
+
+2013-10-20 JSM
+Tweak EGT shutdown behaviour.
+Add timeout to vsslaunch
+Add Nissan VK56 support to QR25DE decoder. Change expected phasing of cam pulses.
+Extend VQ35DE to support VVT (untested)
+Add Hemi VVT (as VVT option) (untested)
+Add poll_level_tooth (should allow Rover 4.6)
+Add tooltip and clarify greying on boost gear targets.
+Clear up VVT data checks in wheeldecoder (BMW/Hemi)
+
+2013-10-26 JSM
+Fix coolant limiter spark cut
+
+2013-10-27 JSM
+Decrement can_err_cnt[] once per second
+
+2013-10-29 JSM
+Implement unsigned bit for on/off outputs
+Fix ini errors that broke boost2 sensitivity, staged secondary enrichment and fuelcut rpmdot settings.
+
+2013-10-30 JSM
+Fix ini error on egomap
+
+2013-11-02 JSM
+Update LICENSEs
+Change fan handling at crank/run and add delay.
+Overrun changes. Ensure cyls aren't cut on return.
+VVT hemi
+
+2013-11-06 JSM
+Overrun changes.
+
+2013-11-07 JSM
+Overrun
+-Fix scaling on RPMdot
+-Cancel prog return if RPMdot too much.
+-Add in bitfield defines.
+-fuel pulse counter debug in status4 remains
+
+2013-11-10 JSM
+Fix CAN1ST typo.
+
+2013-11-11 JSM
+Use datax1.IdleAdj in PWM warmup, Stepper warmup and add on delta in both closed-loop modes. (untested)
+Rename some idle vars.
+unsigned bit for genPWM (partially tested)
+Add support for 36-2-2-2 VVT engines (untested) LH = main cam sensor, set VVT teeth=4
+Alfa messages sent after initial message. (untested)
+Chrysler 2.2/2.5 changes from MS2 (bench tested only)
+
+2013-11-13 JSM
+Remove dead code from misc
+
+2013-11-15 JSM
+ini tweaks
+
+2013-11-16 JSM
+Fix handling of CANPWMs in swpwm code.
+Port Jean's outmsg handling from MS2.
+Handle CANPWMs in mainloop and allow 0-255 scaling.
+
+2013-11-17 JSM
+Group code for CANin, CANout init.
+
+2013-11-18 JSM
+Correct type in second condition of on/off outputs.
+Range check 'k' table size to prevent crash.
+Add additional flash page.
+Re-arrange init so that config error for flash erased error could be seen if it occurred.
+
+2013-11-19 JSM
+Don't do WCOP on >2cyl oddfire using even wheel.
+Replace some RTC swpwm code that was deleted in error. Omission was causing a crash.
+Change CAN_COMMANDS to default to enabled.
+
+-- Alpha 9 --
+
+2013-12-01 KWC
+Start adding code for generic PID. Add more flash data for generic PID. Compiles
+but as yet not finished and untested.
+
+2013-12-01 JSM
+ini tweaks
+wheelspeed launch
+-Expose re-arm speed
+-Provide maxgear setting
+-indicators for ON and LockOut
+
+2013-12-08 JSM
+All flagbytes as volatile
+
+2013-12-13 JSM
+Some more atomic changes.
+Rename 'flash' to 'dflash' to prevent problems with MS2 pasted code.
+Oddfire/oddcyl wheel decoder changes from MS2.
+
+-- Alpha 10 --
+
+2013-12-15 JSM
+Remove some debug lines.
+Fix "stuck" fuel-cut in launch.
+
+2013-12-18 JSM
+Change Subaru 6/7 re-sync method during cranking.
+Don't show config error for knock if already a config error.
+
+2013-12-27 KWC
+Finish C code part of Generic PID (PWM only to start). Still working on ini.
+
+2013-12-28 (22) JSM
+Add GPS data to outpc and datax1 and CAN capture.
+Apply tc_retard to ign timing.
+
+2013-12-29 KWC
+Add Generic PID output polarity functionality.
+Add min RPM for AC idleup activation. Allow it to activate even on crank.
+Add tooltips for Generic PID.
+
+2013-12-30 JSM
+Add dwell table.
+Add min/max limits to SpkAdj. (untested)
+
+2013-12-31 JSM
+Tweak to twin-trigger cam speed 2 cyl. (Should be no functional change.)
+Add CAN MSG_SPND fix from Jean
+(debug code for VVT - remove before flight)
+
+2014-01-01 JSM
+VVT angle calc, handle when min/max not set.
+GPS reading from IO-extender. Add ini gauges, fix typo in code.
+
+2014-01-02 JSM
+CAN RTC was sometimes calling can_inc_ring() in error
+CAN polling load balancing
+
+2014-01-03 JSM
+VVT angle calc for wraparound.
+Add rev2 SDcard datalog mode for interleaved GPS data with 64 byte.
+Allow sig-PIP to run COP (untested)
+
+2014-01-04 JSM
+Add engine shutdown feature. Send 0x8501 to table 7 offset 683
+Apply {loadhigh} to various load gauges.
+Send BCD encoded year to set RTC on Extender.
+
+2013-01-04 KWC
+Make Generic PID actually work.
+
+2014-01-07 JSM
+Crank pulsewidth taper can be in events.
+genPID chan2 RTC section could be missed
+
+2013-01-07 KWC
+Make units for generic PID table and the upper and lower input limits use the same scaling as the
+selection for the PV to use.
+
+2013-01-08 JSM
+Re-arrange, rename, update ini entries for Generic Closed Loop (PID). Add default data.
+VSS2 uses correct bits to select sensor position.
+
+2013-01-10 JSM
+T/C retard set to zero when off.
+Allow TFI sig-PIP to have >1 coil
+
+2013-01-11 JSM
+Remove RTC_TIMING, SDREAD_TIMING
+Remove some debug snippets.
+Master CAN polling/broadcast selector.
+VVT subtract/add extra 5.0 deg for normalising calc.
+
+-- Beta 11 --
+
+2014-01-12 JSM
+Remove some debug snippets.
+Update engine shutdown feature. Send 0x8502 to table 7 offset 683 for spark cut. 0x8503 for fuel and spark cut
+
+2014-01-17 JSM
+Allow mafload to be zero.
+ini tweaks
+Change QR25DE 4cyl phase.
+
+2014-01-20 JSM
+Move Trigger Wizard to ignition menu in ini.
+PWM warmup idle uses crank table when rpm==0
+Boost duty set to 0% at power-on.
+
+2014-01-22 JSM
+Remove some dead code from isr_rtc
+ini tweaks - make menu names match dialogues
+Undo allowing COP with sig-PIP - it doesn't work.
+
+2014-01-25 JSM
+Reject 1 tooth.
+Wait less time on low battery at init.
+
+2014-01-27 JSM
+triggerteeth range
+Update GPS ini entries to match JBperf IO-extender 0.13 firmware.
+
+-- Beta 12 --
+
+2014-01-30 JSM
+Add facility to display sensor ADC counts in CEL system.
+
+2014-02-01 JSM
+CEL CLT max checks correct ADC port.
+ini tweaks
+
+2014-02-02 JSM
+ini: 'divider' requires power cycle.
+
+2014-02-09 KWC
+Make the valve stay at 100% for closed loop boost until at target-delta load. Should spool faster this
+way.
+Fix CLT boost limit behavior so that we don't try to control boost AT ALL below the CLT limit. (i.e.
+0% duty)
+
+2014-02-10 JSM
+Boost control, keep valve unpowered (open) until MAP>baro.
+
+2014-02-14 JSM
+GM bypass handling changed.
+- CPU pin polarity matches main spark polarity - might require re-wiring on "LEDs" if using JS10
+- Turn on Bypass output sooner (per user request)
+Ensure spark output is reset on a stall with Fixed Duty
+Revert QR25DE sync code for 4cyl.
+Make MAF logger work for freq MAFs (calcs freq TS side)
+
+-- RC 1 --
+-- BRANCH: HEAD is now 1.4 --
+

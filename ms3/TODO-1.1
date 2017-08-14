@@ -1,0 +1,97 @@
+TODO
+
+1.1
+Done:
+- Make sure that the new dashpot works with the initial value table in
+  idle code. (Ken)
+- Make Idle Timing RPM correction work without closed loop idle
+  being enabled. (Ken) (done)
+- Timing-based idle speed control options.
+- Make dashpot close quickly when RPMdot is not very negative, slower when it
+  is very negative.
+- First stab at new "accel-pump" style AE. (Done)
+- Refine VVT if necessary (James and Ken, P10)
+  - Log from y8s looks good. PID is done. Just bug fixes now.
+- AC turning on fan should be optional (Ken, P5)
+- CLT-based boost control operation (turn it on above a CLT, below which
+  wastegate is held open). (Ken, P5)
+- Add code to CL EGO to ignore extremely rich or lean values. (Ken, P5)
+- Fix PID D term
+- Add target increase option for fan control and AC idleup.
+- Finish rewrite of mariob's additions to ms2 idle code
+- finish VVT x 100 storage of previous value for precision reasons
+- Enhanced config error reporting. Use pPTMpin[x] to store feature number and report conflicting pin
+in user-friendly name. e.g. "Nitrous pin conflict on 'Nitrous in' with Datalogging."
+- Rotary mode.
+- Closed-loop VVT (Continuously variable)
+- Create "Rotary mode" to support up to 4-rotor engines
+- Traction control (not Patrick's MS2 code)
+- 3.7 and 4.0 Jeep trigger wheels
+- Verify > 3000rpm sync (from reset) on 60-2 (e.g. powercycle the stim)
+- MAP input conflict reports Flex
+- Anti-lag
+- Add VSS options for idle advance and VE
+- Toyota Multiplex ignition.
+- VSS out option in pulses per mile
+- VVT angle out of range tolerance and disabling
+- Make all VVT values 0.1% in logs, and make hold duty setting 0.1%
+- MAP sampling - ensure angle fits within tach event (James, P1)
+- MAF to use SI units (James, P5)
+- Flex input to capture fuel temperature too (James, P7) (bench tested only)
+- Frequency based MAF sensors (James, P8)
+- Frequency based MAP sensors (e.g. Cosworth?) (James, P8)
+- New comms protocol. (in process) (James, P1)
+-- Megaview compatability, SDcard newserial
+-- Get rid of txbuf
+- ST170 VVT decoder (James, P2)
+- Knock windows (James, P1)
+- Fuel consumption calcs in firmware (James, P8)
+- Allow config error on generic sensors to be disabled
+- 2JZ VVTi (James, P7)
+- Honda wheel decoder D17A2 / Acura TSX
+- Add Min TPS change and Min MAP change to trigger accel.
+- fuel temp outpc. flex %
+- support 'A' serial command again
+- Fixup CAN passthrough (James, P1)
+- fully implement semaphores around any port changes - fan and AC are unsafe
+- Eliminate "use cam sensor" setting if possible. (P1)
+- half-sync / full-sync indicator
+- 1 cyl allow wasted spark like in MS2/Extra
+- dual MAP sensors
+- TFI signature PIP (James, P7)
+- NGC 4cyl cam sync stability? (James, P3)
+- Make launch indicator work as user expects. Revisit all indicator colours.
+- Review "indicators" on TS dash. Consider all i/o ports. (considered them and decided not to presently)
+- Re-do tpsdot and mapdot calcs. Original really crude noisy calc still in place !
+- Optionally replace previously good duty with table-based duty based on
+  target vs MAT.
+- Review VSS1 vs VSS2 traction control
+- SD improvements made, pending more testing.
+- Forward on "set clock" to Extender (James)
+- Add TPS/load thresholds to T/C. (James)
+- VVT allow cams 2,3,4 when not in "trigger wheel"
+- Knock, indicator > thresh only. Add CLT curve.
+- Knock values are rolling average
+- Dedicated knock outputs in outpc
+- Incorporate std-CAN broadcasting
+- Add accel pump new vars to ini (forgot at some point)
+- 'teg' issue in firmware loader - i.e. doesn't work correctly if you specify a com port.
+- new-AE overflow to 65ms as per http://www.msextra.com/forums/viewtopic.php?f=125&t=44509&p=316810#p316810
+- ALS Remove min TPS setting.
+- new-AE in 0.1% units
+- Nullify incorrect built-in MS2/BG tooltips
+- Consider anti-lag enhancements (cyclic idle???) 
+- Mario 4sq -> 8inj outputs bug
+- Loop SDcard logfiles. (i.e. replace oldest when directory is full.)
+- Nullify unused flash areas per Phil.
+- Find out why enabling rotary hangs CPU
+- SD/RTC wait a bit if date/time not yet valid.
+- Optionally allow MAT correction with MAF
+- Prime pulse delay.
+- Fanctl on/off thresholds
+- LS1 mis-sync testing
+- TPS average window
+- Before release - clean up ini, removing trial dialogues for new TS features
+- After branch, before release - remove long-term-trim
+- Viper V10 wheel mode (needs testing)
+

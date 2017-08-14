@@ -1,0 +1,34 @@
+TODO
+
+1.2
+
+Completed:
+- Resolve duplication of "TPS accel" and "TPSaccel" outpc.tpsaccel and outpc.tps_accel (Ken) (Nothing to do for this. I created my own variables b/c I wanted
+	      mine in %, but the standard algorithm expects and outputs in
+	      milliseconds, so they're incompatible).
+- Allow MAP logging to report a full cycle at low rpms
+- Make MAF 'correction' table more sensible.
+- Merge MAF calibration and correction
+- Merge built-in baro curve with correction
+- Review/rename menus and datalog fields for consistency and intuitive naming (mostly)
+- Test mode to use new TS buttons feature
+- Maximum VSS in launch
+- Overdwell - regular spark
+- Overdwell - rotary trailing
+- Twin trigger - allow 2 stroke
+- 'k' command for flash calibration tables too
+- Twin trigger - allow "twin-trigger cam"
+- TC perfect run rpm (coded but untested)
+- TC include boost control (coded but untested)
+- Status bytes to report input and output ports/pins.
+- Make old AE in 0.01s units instead of 0.1s. Allow ignition events as an option.
+- Monitor AFR for sane values and movement. Turn off EGOcor if out of range or stuck.
+- Similar monitoring for other sensors.
+- Check engine light
+- Table blending / algo blending
+- Phase sensing by MAP sensor (tested on engine)
+- Cranking PW% curve blending (for flex)
+- Consider MAFflow lookup - MS2/BG code uses an unsignedX flag on intrp1dc but that's not present in MS2 or MS3.
+- Make loader look for ms3pro.s19 as well
+- Double MAF range.
+

@@ -1,0 +1,713 @@
+$Id: ChangeLog,v 1.1424.4.70 2015/07/09 19:27:17 jsmcortina Exp $
+
+MS3 CHANGELOG
+=============
+
+HEAD/1.4
+
+2014-02-15 JSM
+Remove some unused sections from ini
+
+2014-02-15 KWC
+Tie boost control interval to boost valve frequency. Removes a setting.
+
+2014-02-15 JSM
+Add new CAN realtime data broadcast system for dash compatability.
+
+2014-02-16 JSM
+Add new CAN receiving system (first draft)
+
+2014-02-17 JSM
+Extend CAN Receiving to 16 channels. Re-arrange endianism code. (Re-set RPAGE.)
+
+2014-02-19 KWC
+Get rid of dashpot decay. Causes more problems than it solves.
+
+2014-02-21 JSM
+Commonise NUM_CHANS, resolve egtport[] size.
+
+2014-02-22 JSM
+Improve CAN RCV endian calcs.
+CAN RCV: add "status5" as an option to ease testing.
+CAN broadcast: add user defined test message
+Support CAN RCV into VSS3,4 also.
+Add some missing tooltips to ini, tweaks.
+
+2014-02-24 JSM
+Fix error in VVT calc introduced on 2013-01-11
+Only calc VVT angle if new data available per channel and only then run closed-loop. (untested)
+
+2014-02-25 JSM
+Slight re-arrangement of CAN outpc broadcast data to suit MS2.
+
+2014-02-26 JSM
+Rotary trailing wasn't spark-cutting.
+Put XGATE random_no table in the correct place.
+Remove some debug code from XGATE
+
+2014-03-01 KWC
+Separate boost control into its own source file.
+Re-implement boost control as an Ideal PID loop with a bias table instead of initial duty table.
+
+2014-03-05 JSM
+Fix egt_init bug.
+Make EGT work again.
+Limit CAN EGO to 1023 counts.
+
+2014-03-08 JSM
+ini tweaks for CAN outpc broadcasting
+
+2014-03-09 JSM
+Handle another impossible tooth count with config error.
+
+2014-03-10 JSM
+Typo causing GPS to trigger single event fuel cut.
+Rename not-synced and full-sync indicators.
+
+-- Alpha 1 --
+
+2014-03-14 JSM
+Average 1-cyl RPMs over two revs.
+
+2014-03-17 JSM
+Use TS generated CLT, MAT GM calibrations. Use MAT for "GM calibration"
+Use "vvt_decoder" var in init.
+
+2014-03-22 JSM
+Many after-launch features broken on 2014-08-07, STATUS2_LAUNCH was not being used.
+Traction changes for perfect run and button modes.
+
+2014-03-24 KWC
+Fix table blend behavior with boost bias table.
+Rename "closed/open" to "minimum/maximum" for boost and idle valve settings.
+
+2014-03-25 JSM
+Fix timer rollover for boost delay.
+
+2014-03-28 JSM
+Fix rogue pulses on MS3X secondaries for staging or dual-fuel.
+MS3X non-sequential staging uses expected number of outputs.
+Fix staging transition "saw-tooth" issue.
+Re-do staging duty calcs to work with sequential.
+
+2014-03-29 JSM
+Extend vssout_scale to 32bit. (untested)
+(Moved vss3,4can_offset settings)
+
+2014-04-03 JSM
+EGO "load above" setting allows negative numbers.
+
+2014-04-04 JSM
+Boost control "mid" output setting wasn't working.
+
+2014-04-24 JSM
+Fix up ini bitfield errors (would have broken some settings on gen PWM, water inj)
+Fix Time-After-Spark (same issue as MS2)
+
+2014-04-25 JSM
+Implement CAN TX timeout and reset.
+
+2014-04-26 JSM
+Fixed max VSS for launch and change logic for VSS flat-shift.
+
+2014-05-02 JSM
+Change NGC6 phasing again.
+Fix MPG calc (off by factor of 10)
+ini tweaks
+
+2014-05-09 JSM
+Allow up to 24 VVT teeth in ini.
+Fix CL idle getting "stuck" just after cranking.
+Fix flex fuel temperature calculation.
+Add config error for unsupported 36-2-2-2 combinations
+Change defaults for ITB load.
+Swap phase on GM7X 6cyl.
+Remove "ability" to use +360 on trigger angle/offset to swap phase - not working.
+
+2014-05-12 JSM
+Fix a couple of ini error that TS missed.
+
+2014-05-17 JSM
+Fix TPSdot limits in ini.
+Minor optimisation on AE code (each function call has ~87 cycles cost.)
+
+2014-05-18 JSM
+Experimental non-linear spk cut for launch.
+
+2014-05-19 JSM
+Extend AFR table limits in ini.
+
+2014-05-20 JSM
+ini - capitalisation and consistency
+  - some units standardisation (gives some warnings on old MSQ load)
+  - remove GridHeight
+
+2014-05-23 JSM
+Reduce serial timeout to 25ms.
+
+2014-05-28 JSM
+VSS and SS sampled every 50ms instead of 100ms
+EDIS sets "Full RPM sync"
+
+2014-05-28 KWC
+Remove linearity curve and add bias curve for PID alt ctl. Switch to ideal PID.
+
+2014-05-29 JSM
+Make PID alt ctl 100x less sensitive.
+
+2014-05-30 JSM
+Move SPKMODE49 to part2
+Add 6-cyl 36-2-2-2 support. Phasing TBC.
+Add rough cut at Daihatsu 12+1 mode. Phasing TBC.
+
+2014-05-31 KWC
+Back out alternator PID changes.
+
+2014-06-01 KWC
+Add Miata bang-bang alt ctl.
+
+2014-06-02 JSM
+More work on Miata XGATE code.
+Clarify error 71.
+
+2014-06-03 JSM
+CAN broadcast tweaks from MS2.
+Add AEM 3.5 bar, 5.0 bar MAP sensors to known list.
+ini tweaks
+Allow 6 cyl suby VVT (untested)
+
+2014-06-04 JSM
+Fix rotary trailing calculation error (evident near 0deg advance)
+
+2014-06-06 JSM
+Set Daihatsu 12+1 mode phasing.
+Allow spark 45deg ATDC. (Was limited to 10ATDC in Oct'13)
+Fixed zero sized extended CAN packets xmit in error.
+
+2014-06-08 JSM
+Assign correct config error numbers for VSS2.
+Fuel pump (O/L or C/L) sets correct portusage.
+
+2014-06-09 JSM
+3-cyl single-coil - beware of possible side effects
+
+2014-06-24 JSM
+Fix to oddfire custom angles (accumulate odd_trig_offset)
+
+2014-06-26 JSM
+Allow fuel calcs to run w/o MAP or MAF sampling.
+Don't flag VVT error for on/off output.
+Tweak CAN VSS defaults.
+
+2014-06-27 JSM
+Tweaks to subaru H6
+Add new advanced options to launch for different limiter types.
+Fix typo nitrous / 3step.
+Allow nitrous 1 during launch.
+Powercycle required for nitrous.
+Add max RPM for A/C.
+Add line-lock staging.
+Add some missing I/O pin usage names.
+
+-- Alpha 2 --
+
+2014-07-08 JSM
+Fix MS3Pro HEI bypass polarity issue.
+Allow FP to be pulsed in I/O test mode.
+
+2014-07-09 JSM
+Tooltip tweak.
+Swap phase on Subaru H6 36-2-2-2
+
+2014-07-11 JSM
+Roving idle only works if anti-lag on.
+
+2014-07-15 JSM
+Change S54 VVT handling.
+
+2014-07-16 JSM
+Re-write decoder for 4cyl 36-2-2-2 Subaru with VVT.
+Enable C.O.P. timeout
+
+2014-07-19 JSM
+Fix on/off idle output.
+
+2014-07-22 JSM
+Apply timeout to SSEM.
+Apply timeout to fire_n_check.
+(Both of these changes were to fix/mitigate a lockup discovered in RB25 mode.
+The code was getting stuck in fire_n_check waiting on the XGATE.)
+Tweak to 4cyl 36-2-2-2 Subaru with VVT.
+Add Ford Coyote decoder - requires VVT be enabled and Coyote decoder selected.
+Minor tweaks to usage of vvt_decoder variable.
+
+-- Alpha 3 --
+
+2014-07-22 JSM
+Work on Coyote VVT position decoding. Various wheel decoder and VVT changes.
+ Exhaust cam code includes debug data.
+
+2014-08-02 JSM
+Add water_duty to datalog set.
+
+2014-08-03 JSM
+Kick-start delayed cranking spark (from MS2)
+Basic trigger (next-cyl) and trigger return don't miss a beat on kick-start.
+VVT stores trig3,4,5cnt to correct var. (Coyote)
+Coyote VVT angles not calculated until full sync achieved. (Pending.)
+
+2014-08-04 JSM
+Tweak Coyote exhaust angles.
+
+2014-08-06 JSM
+Fix defaults for ITB.
+Workaround for TS 'INVALID' fuel load gauge issue.
+
+2014-08-08 JSM
+Allow SpkD in Rotary test mode.
+
+2014-08-09 JSM
+Allow VVT with Daihatsu 12+1 (untested)
+
+2014-08-12 JSM
+Coyote, cams3,4 360 deg out of phase.
+Rewrite GM7X decoder, simplify and use techniques from spkmode4.
+Swap GM7X phase.
+
+2014-08-13 JSM
+Add PJ6 to log field.
+Add tooltips for Gen PWM load.
+
+2014-08-21 JSM
+Re-arm COP in SDcard readback.
+
+2014-08-26 JSM
+More re-arm COP in SDcard readback.
+Remove some dead code from SDcard readback code.
+
+-- Alpha 4 --
+
+2014-08-27 JSM
+Allow MAP/kPa to trigger an SDcard log
+SDcard pulse output (for Go-Pro)
+Allow cam polarity to be flipped on custom decoders. (Tested some modes.)
+Ungrey cam poll polarity for GM7X. (Was being used already.)
+Add 29bit CAN broadcast for Holset HE351VE turbo.
+Change EGO delay scaling to allow longer delay.
+Allow nitrous fuel solenoid to run at different frequency.
+
+2014-08-29 JSM
+Tweak comments in ms3.h
+More generalised 'edge2' handling.
+4G63 uses 'edge2' to allow cam to be flipped.
+Resolve MegaView units altering wrong bytes in 'A' datastream. Make degC work as expected.
+
+2014-09-05 JSM
+Fix typo in ini file.
+Bitmask generic sensor selectors.
+
+2014-08-08 JSM
+Various ini tweaks, missing tooltips etc.
+Update ini file to link to PDF manual.
+Rename a few indicators that were duplicated.
+Remove EAElag compensation (already partly removed.)
+Apply bitmasks to EAEOption.
+
+2014-09-09 JSM
+Fix on/off VVT output. (Minor re-arrangement of init code.)
+Fix Y axis display units on VVT on/off table.
+
+-- Alpha 5 --
+
+2014-09-18 KWC
+Add the beginnings of engine state tracking.
+
+2014-09-22 KWC
+Properly limit integral sum for boost PID.
+
+2014-09-24 KWC
+Add setup mode for closed loop boost control. It zeros out PID gains so bias table can be tuned
+like an open-loop table. First cut so untested as yet.
+
+2014-09-25 KWC
+Closed loop boost control setup mode is tested now.
+
+2014-09-27 JSM
+Re-ordered injector event array update code to resolve SR20 (and other) injector issue.
+
+-- Alpha 6 --
+
+2014-09-30 JSM
+Alter CAN passthrough behaviour. Only send second packet after remote has replied.
+Subaru 36-2-2-2 VVT has its own ignition mode.
+
+2014-10-05 KWC
+Add page 29 to flash to get ready for boost dome control.
+
+2014-10-06 KWC
+Add boost dome control config data to ms3.h and ms3_main_defaults.h
+
+2014-10-10 JSM
+Add support for new zero-config IO-box concept over 11bit CAN.
+
+2014-10-12 JSM
+Extend IO-box to automatically support four boxes.
+
+2014-10-13 JSM
+On/Off outputs - use "hyst" setting as match with bitwise AND. *CHANGED BEHAVIOUR*
+Grey out iobox4 settings.
+Fixup iobox CANIN (bitmask issue).
+
+2014-10-16 JSM
+Add a couple more checks for pending interrupts.
+
+2014-10-20 JSM
+Sequential shift cut can cut fuel also.
+Pit lane limiter (needs more testing.)
+
+2014-10-21 JSM
+Some pit limiter tweaks.
+Hitting rev limiters disables EGO correction.
+
+2014-10-28 JSM
+Remove a little debug code.
+
+2014-10-31 JSM
+IObox init tweak.
+
+2014-11-07 JSM
+Changes to Flex input code, so it works harder to reject rogue data.
+Start of flex blending.
+Comment IO-box settings for now.
+Flex blending: AFR, WUE, ASE, CrankPW.
+Split set_prime_ASE into two prime, ase functions.
+
+2014-11-08 JSM
+Move txslip curve to page27.
+Add blend curve for flexblending. Change flexblend to 0-100 scale to match other blend curves.
+Change greying of boost bias2 - only for two channel boost, not switching.
+Flex blending: Overboost, boost CL, boost OL.
+
+2014-11-09 JSM
+ini fix for ign3 greying
+Flex blending: fuel and spark
+Re-arrange memory usage page28
+Move time-based AE curves to page28. (untested)
+Move accel-pump AE curves to page 28.  (untested)
+Tweak flex input filtering.
+
+2014-11-12 JSM
+Flex blending: Accel-pump AE
+Flex blending: Time-based AE
+Traction control LED.
+
+2014-11-13 JSM
+Allow VVT with Daihatsu 3cyl. (actual VVT untested.)
+Add bitmasks to ram4.no_cyl or use num_cyl
+Add preliminary support for 2zz-ge VVT (in 2JZ VVTi)
+Add slipxtime to outpc.
+Extend nitrous curves to 10 points.
+Extend launch retard to 10 points.
+Add VSS based progressive nitrous.
+LS1 decoder tweak. (Was missed from ChangeLog)
+
+2014-11-14 JSM
+16bit freq option for swpwm.
+Variable tacho output.
+
+2014-11-16 JSM
+Add CANIN indicators.
+Allow PORTA, PORTB, CANOUT1-8 outputs to be I/O tested.
+Save a few CPU cycles on tach out.
+
+-- Alpha 7 --
+
+2014-11-16 JSM
+Respect Nitrous +12V polarity. **Beware changed behaviour**
+Changed: Traction, 3step, TCLU-en, TCLU-brake, LTT, Dualfuel, tableswitching.
+Add slip*time gauge.
+
+2014-11-17 JSM
+Respond to EGT per cylinder.
+
+2014-11-19 JSM
+TC / OL-boost wasn't working.
+
+2014-11-23 JSM
+Launch boost target was incorrectly scaled.
+
+2014-11-24 JSM
+VVT temp vars volatile.
+Adjust Coyote ref angles for VVT1, VVT3.
+
+2014-11-25 JSM
+Knock - respond per cylinder.
+
+2014-11-26 KWC
+Add more dome code. Compiles but unfinished and untested.
+
+2014-11-28 KWC
+Properly set dome output duties (convert from 1 PID output to an
+"empty" output and a "fill" output).
+Move some of the new ram vars to v2 area of RAM. No more room in main RAM.
+Get rid of some main RAM vars that were either unused, or didn't need to
+be main RAM vars
+
+2014-11-28 JSM
+Fix bug where EGT warning triggered maxAFR in error.
+Fix bug where EGT added fuel was still added when PW=0.
+EGT shutdown also stops nitrous
+Change ALS behaviour for output, PWM output and idle-up. All three active
+ when switch is active and all conditions are met regardless of TPS.
+Over-run allows progressive cut and return with staging if it is inactive.
+
+2014-11-28 JSM
+Change ALS behaviour per 'xrattiracer'
+
+2014-12-05 JSM
+Set VVT angles to min/max as appropriate at init.
+Tweak for VVT impossible angle handling.
+Complementary VVT output channels 3,4 weren't being initialised for BMW S54
+Correct ini addresses for progressive nitrous data (was misaligned.)
+Add compile-time validation of flash page sizes. (Top of main.)
+Move alternator curve settings.
+Add three loopback 'outputs' to programmable on/off outputs 
+
+2014-12-06 JSM
+Add some triggers for GM7X 4cyl seq (untested)
+Remove duplicated CANIN/CANOUT dash gauges.
+
+-- Alpha 8 --
+
+2014-12-06 KWC
+Add output init code for boost dome control. Still need to set up inputs and do ini and
+a few other things.
+
+2014-12-07 KWC
+Add on/off VVT to table switching input options. So VVT activating or deactivating
+can cause tables to switch.
+
+2014-12-09 JSM
+Optimisations to CAN interrupt code. (Saves ~6us on TX)
+StdCAN uses can[1]
+
+2014-12-12 JSM
+Re-arrange dual-solenoid VANOS code. ** UI change **
+Allow 4 channels (8 outputs) for BMW S62 VANOS.
+
+2014-12-16 JSM
+Add median filter to Flex.
+calc_fuelflow as function to reduce stack usage.
+
+2014-12-18 JSM
+Major CAN re-write.
+- TX is polled not interrupt driven
+- TX messages built in full in advance
+- TX code just grabs pre-made message and loads registers
+(CAN OUTMSG feature untested.)
+Re-enable IO-box.
+Fix buffer over-run bug in CAN receiving.
+
+-- Alpha 9 --
+
+2014-12-20 JSM
+VSS noise filter ignored when speed is zero to respond more quickly.
+Fuel Cut delay can be zero.
+
+2014-12-22 JSM
+Add CANIN status to CAN I/O test
+Tweak to CAN code to ensure packets sent in expected order.
+
+-- BRANCH: HEAD is now 1.4 --
+
+2014-12-24 JSM
+Cam sensor / MAP sensor UI, tooltip and config error message tweaks.
+
+2014-12-26 JSM
+Grey out and ignore cam input setting in "Single Wheel" mode.
+Fix fuel table switching, VVT change broke it.
+Allow "Loop" to operate inputs.
+Remove some incomplete features now pushed to 1.5 (engine states, dome)
+
+2014-12-28 JSM
+Read and update sensors in test mode too.
+Tweak CANIO testmode UI.
+
+2014-12-29 JSM
+Allow loggers in passthrough (MSG_REQX)
+Remove erroneous debug code from VSS.
+
+2015-01-07 JSM
+Add simplified "Dash Broadcast" for CAN.
+Tweaks to IO-box code.
+
+2015-01-08 JSM
+Update ini for MS3-Pro "Digital In 4" renamed to "Digital Switched In 3" *UI CHANGE*
+
+2015-01-10 JSM
+Extend testmode data to allow more pins to be tested.
+Add more pin and CAN outputs to I/O test modes.
+
+2015-01-10 KWC
+Fix idle_wait_timer to be accurate to .1sec instead of 1 sec. (Arran's issue)
+
+2015-01-19 JSM
+Ford Duratec 4cyl VVT cam decoder added.
+Swap phase on 4cyl 2JZ VVTi.
+CAN MSG_REQ, MSG_REQX tweaks per Jean.
+
+2015-01-20 JSM
+'Miata' alternator mode keeps coil off at zero RPM.
+Alternator mode has hold-off timer on sync-loss.
+A/C input inversion option.
+Allow single wheel@cam and VVT. (UNTESTED)
+VSS tweaks
+
+-- Beta 10 --
+
+2015-01-21 JSM
+SDcard baud rate changes to reduce CPU load.
+SDcard - use #defines for buffer RAM addresses.
+SDcard change buffer location to reduce CPU load during logging and reading.
+
+2015-01-23 JSM
+SDcard - stream logging addresses updated.
+
+2015-01-25 JSM
+Add PowerCycleRequired for Tableswitch/DualFuel options
+
+2015-01-26 JSM
+ini tweak
+
+2015-01-26 JSM
+From JB in MS2. Fix can_build_outmsg to send only the needed messages and go through all elements
+
+2015-01-27 JSM
+Allow CAM_DOUBLE to work for trig2cnt (Fiat 1.8 16V issue.)
+Fix a tooth angle for Fiat 1.8 16V
+
+2015-02-03 JSM
+Rename CANEGO setting.
+Fix default value for pwmidle_pid_wait_timer.
+
+2015-02-06 JSM
+2JZ VVTi - fix typo on V8.
+2JZ VVTi - add V12 (untested.)
+Tweak V12 sync.
+
+2015-02-11 JSM
+Adjust Fiat 1.8 mode by 5 degrees.
+Remove 'EMS' test code.
+Remove KNOCK_DEBUG and dead code.
+
+2015-02-13 JSM
+Change DATAX1 offset to allow for more space in outpc.
+** Trans controllers will need 512 adding to offset when sending data from MS3 (i.e. 632 -> 1144) **
+
+2015-02-17 JSM
+Adjust phasing of 6cyl Jeep 2000. 120deg earlier.
+Add 4cyl variant of Jeep 2000. (UNTESTED)
+
+-- Beta 11 --
+
+2015-02-27 JSM
+** Reverse DATAX1 offset change. ** (TS hardcoded for RTCC and cannot be fixed in short term.)
+
+-- Beta 12 --
+
+2015-03-02 JSM
+ini tweak testint
+
+2015-03-08 JSM
+Fuel temperature (primary) degC fix.
+Fuel temperature (secondary) degC tweak - applies to all sensor transforms, not just CLT,MAT
+
+2015-03-23 JSM
+VVT change - set vvt_calc on each cam tooth always. (PF issue.)
+Dual Fuel accel-pump AE was applying to both channels in error.
+
+2015-03-31 KWC
+Fix a bug where AC/fan idleup can fight with PID when PID control interval is
+lower than the AC/fan idleup delay.
+
+2015-04-01 KWC
+Fix a small ini error in boost_vss. Tool-tip said the feature worked with
+OL boost. It doesn't.
+
+2015-04-08 JSM
+Fix pinport usage code for VSS3,4
+Add some manual links to ini file.
+Default to not dividing by outpc.baro in fuel calc. Add compatability option for it.
+Remove TPS bypass limit, use hard limit.
+Rearrange revlim calc.
+Baro defaults to off.
+
+2015-04-09 JSM
+Re-enable sensors logging for Coyote VVT3 debugging. Disable VVT1 debugging.
+
+-- Beta 13 --
+
+2015-04-10 JSM
+Allow 4G63 output phase to be swapped by adding 360 deg to trigger offset.
+Change poll-level check tooth to 1 to match old behaviour.
+
+2014-04-17 JSM
+Allow knock countdown and window to overlap for low toothcount wheels (SR20, RB25)
+Tweak wheel_fill_map_event_array for iteration.
+Revert "Adjust Fiat 1.8 mode by 5 degrees."
+VVT tooth filter.
+
+-- Beta 14 --
+
+2015-04-22 JSM
+Re-sample baro on startup for "initial MAP reading" case and use highest.
+
+2015-04-26 JSM
+Fix MS3-Pro port names for EGT in.
+
+2015-04-29 JSM
+Add CANin/out to datalog.
+Tweak initial baro calc.
+
+2015-05-02 JSM
+Bitmask BaroOption.
+
+2015-05-06 JSM
+Make ONLY boost bias 1 used even when switching or blending.
+
+2015-05-08 JSM
+Remove Coyote debug data.
+
+-- Beta 15 --
+
+2015-05-08 JSM
+SSEM tweak to xgate code for ltch_lmms
+
+2015-05-16 KWC
+CL boost was 10x too sensitive. Fix it.
+CL boost min duty being used when off boost. Now shuts off the solenoid
+instead.
+
+2015-05-19 JSM
+Tweak to ini ref deadtime 100%.
+Fiat 1.8 adjust by 4.5deg.
+Remove some dead code.
+Fix generic sensors "linear" calc overflow at max range.
+Remove unused 'next_txmode'
+
+-- RC 16 --
+
+2015-06-03 JSM
+Tweak to ini to allow min/max duty setting when O/L boost.
+CANEGO rounding.
+
+2015-06-26 JSM
+Add loop to datalog set.
+ini tweaks for tooltips.
+
+-- RC 17 --
+
+2015-07-09 JSM
+Tweak to s19tail.inc to preserve page29
+
+1.4.0 release

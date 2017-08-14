@@ -1,0 +1,1233 @@
+$Id: ChangeLog-1.0,v 1.1 2012/11/06 12:51:23 jsmcortina Exp $
+
+MS3 CHANGELOG
+=============
+2009-05-08
+Updated code to use new 0xF000 monitor with different jumperless reflash mechanism
+
+2009-05-10 22:54 BST
+Got 2 stage nitrous working on existing pins and MS3X pins. Tested all inputs and all outputs.
+Changes in init.c to use pPTxpin[y] method for checking pin conflicts some more.
+
+2009-05-20 BST
+Various changes around monitor integration.
+
+2009-05-28 BST
+Changed TPSdot config data.
+Experimenting with combined dialogues in ini for TS.
+
+2009-05-31
+Flex fuel, three port options. UNTESTED
+Fix 1ms and slower clocks, was running at half speed.
+Seconds was very close, runs from ECT TOF, adjusted.
+
+Realtime baro port. Tested local ports read right port.
+EGO2 port. Tested local ports read right port.
+Inline ASM changes to use S12X
+MAP reading can be configured to different port. Ports work ok.
+
+Tacho out. Pins re-assigned and all tested ok.
+Configure DDRJ for JS11 use.
+
+Launch inputs. All tested ok.
+Allow TC2 or TC5 as Cam input. This was fairly involved and required many
+TCTL, TIE, TFLG1 settings to be changed. XGATE interrupt setting also changed.
+Tested ok with V8 COP, V8 W/S in MS3X, plus LEDs for W/S.
+Both cam inputs work and interrupts swap over.
+Priming typo bug corrected (set spark on instead of fuel.)
+
+Continuation on SDCard support. If card is inserted the card is queried and the
+FAT in the lowest partition number is loaded to RAM.
+
+2009-06-01 JSM
+SDcard logging. Code writes a tiny datalog to the card.
+
+2009-06-02
+Sequential - not commented!
+
+2009-06-03 JSM
+Added TIMTimeroverflow test code
+Fix XGATE spark code. TIE clearing disabled to make it work.
+Other TC2/TC5 fixups.
+
+2009-06-04 JSM
+Added SDCARD write_block interrupt.
+SDCARD now writes to card, but only alternate block in error.
+
+2009-06-05 JSM
+SDCARD now writes all sectors.
+
+While dribble-burn is in process CLT, MAT, EGO lookups blocked to prevent reading bogus data.
+Fixed missing hash typo bug in loop logger, likely causing crashes.
+
+2009-06-06 JSM
+SDCARD fully using interrupt driven code.
+Old foreground code SD.c and SPI.c removed.
+
+2009-06-07 JSM
+SDcard now finds the address of LOG0000.MS3 in the root dir and writes a log to it.
+
+Finds highest LOGxxxx.MS3 filename across multiple sectors of directory.
+If it is empty then start logging.
+
+More testing required, but almost there.
+Finds the next log filenumber (or re-uses an empty one)
+If new file is required it allocates a cluster chain and writes the directory entry.
+Then logs to that file.
+
+2009-06-08
+sd_thisfile_sect wasn't being set on new files. So first write went to wrong place.
+
+2009-06-09
+At end of log a new file is started (for insertion mode.)
+
+2009-06-10...12
+Endless hours fighting SDHC init. Had omitted the 8 clocks after each command.
+SDHC init working.
+Added FAT32 support.
+Almost there.
+
+2009-06-13
+Got there. SDHC and FAT32 supported. All cards I have tested and working. Possibly a few small
+glitches yet to work out.
+
+2009-06-15
+KC - Added first working cut at sequential. Still a lot of work left
+to do before it's "done".
+
+2009-06-16 JSM
+Adding datalog button and LED options.
+Changes to conflict detection in init
+
+2009-06-17 KC
+Added first "align" attribute. Appears to work. Also fixed
+priming pulse yesterday.
+
+2009-06-18 KC
+Fix problem that could occur when IC code tried to schedule injector
+on event when the injectors are already on. Also, lock properly so that
+on switchover to this state, there is no race condition causing lost
+events.
+
+2009-06-19 KC
+Convert timers to 1usec again instead of 2/3 usec ticks, and attempt
+to fix sequential injection not working on first sync.
+
+2009-06-21 JSM
+Tested 1us code on car. Works ok (after make clean...)
+Config error blocked jsr code. Fixed.
+
+2009-06-22 JSM
+Priming on V3 injectors was inverted, leaving injectors on.
+Fixed error in FIDLE conflict checking
+
+2009-06-23 JSM
+Button mode (but not WTF) seems to be working. Managed to corrupt a card while testing
+insertion mode and card is not "broken" with Linux, Windows and MS3 not agreeing on a common
+format. Need to write format routine in MS3 that is acceptable to all.
+
+2009-06-24 JSM
+SD. Added timeout to write FAT. Now detects broken 1G card.
+Adding serial commands for SD. Not done write sector yet.
+
+2009-06-25 JSM
+Added SD write sector.
+
+2009-06-30 JSM
+Cycle by cycle and tooth by tooth logging options. Partially tested.
+
+2009-07-07 JSM
+FIDLE getting clobbered by typo in sdcard. Fixed.
+
+2009-07-07 KWC
+Fix semi-seq on ms3x outputs, and prime and crank pws on semi-seq modes.
+
+2009-07-09 JSM
+Extended spark tables to 16x16
+Extended fuel tables to 0.1% precision.
+Re-arranged flash to suit.
+
+2009-07-09 KWC
+Added timing table and mode for seq.
+
+2009-07-12 JSM
+Added stream logging support to SDlogging
+Rolling average used for missing tooth detection during cranking
+Added hold-off timer for sync loss to avoid ASE restarting immediately and relay clickety click.
+
+2009-07-14 KWC
+Fix end and middle of pulse timing modes for seq.
+
+2009-07-15 JSM
+Stream level meter. Not sure the ASE holdoff is working.
+
+2009-07-16 KWC
+Add code for injector trim. Still basic (timing does not change depending
+on trim) and untested.
+
+2009-07-18 JSM
+Stream level meter again.
+
+2009-07-22 JSM
+Stream sampling issue, reduced sector write rate to avoid gaps.
+Added port option for stream ADC.
+Re-arranged menus in ini file
+
+2009-07-24 KWC
+Fixed burning tables.
+
+2009-07-27 JSM
+On/off idle actually works. Tested on FIDLE only. Made tacho use port/pin vars.
+
+2009-07-26 KWC
+Made MAT and Baro corrections work in 0.1% units. Double checked
+that changing MAT correction % by 0.1% changes pulse-width.
+
+2009-07-28 KWC
+Added MAPOXMin back to EGO dialog.
+
+2009-07-29 JSM
+Hopefully fixed repeated filenames on SDcard.
+reqfuel_multiplier can't go to zero
+Removed 'userlevel'
+trim tables typos in ini
+Test mode injA bugfix
+
+2009-07-30 JSM
+NGC 4cyl cam cop/seq support
+36-2-2-2 cam cop/seq support
+Subaru 6/7 cop/seq support
+Added Fiat 1.8 16V wheel
+Cam init support double edges for uneven wheels
+
+2009-07-30 KWC
+Rearrange flash a bit (hopefully nothing is messed up) and take first
+cut at new MAP sampling. Timing not settable yet. Also cannot handle
+selectable ADC port yet. Will be fixing both of those tonight/tomorrow.
+
+EDIT: Added timing.
+EDIT: Made ADC port selectable again.
+
+2009-07-31 JSM
+More flash re-arrangements, freed up a little more TEXT3.
+Added the following with a little testing:
+Boost table switching
+Boost duty/target at launch
+Boost launch delay curve
+3-step rev limiter
+Variable launch with an ADC input
+
+2009-08-01 KWC
+Fixed sigs.c so it would compile.
+Added MAP sample window in degrees.
+Fixed a bug in MAP sampling that would cause all rises in MAP to lag horribly.
+
+2009-08-03 JSM
+3 wire PWM idle
+Injector opening time curves
+Needs extending to all sequential outputs for consistency. Unsure if best to
+repeatedly call calc_opentime(inj) on demand or have array of pre-calculated
+opening times.
+
+2009-08-04 JSM
+Opening time curve applied to sequential outputs.
+Non-linear small pulsewidth curves added.
+Individual seq pulsewidths added to outpc.
+Re-arrange sd_card for speedup
+Re-arrange calls to realtime/sd_card from main for speedup
+Fix mainloop "hang" when enabling SEQ_TRIM online.
+Two-stroke num_cyl support from MS2/Extra
+
+2009-08-04 KWC
+Fix Opening time curve on seq outputs to match normal pwcalc (was adding
+opening time twice).
+Make EAE only do second channel stuff if it needs (EAE on 4 cyl now taking
+~300 usec). Checked PID algorithms, none are taking a significant amount of
+time.
+Small change to seq trim to try to speed it up (save longxlong and replace with
+longxint)
+Protect map_temp by disabling interrupts when accessing it from the main loop.
+Remove variable MAP lag, it has not been used since one of the 2.0 betas. 
+
+2009-08-05 JSM
+Fix spare ports. Typo on portJ and DDRs not being set.
+Fix INJ1/2 PWM on/off selection.
+INJ2 PWM parameter were already broken due to a typo in ms3_structs.h
+Re-revise INJ2 PWM selection.
+
+2009-08-06 JSM
+XGATE INJ PWM working on INJ1 + INJ2.
+
+2009-08-07 KWC
+Turn on regular accel with EAE.
+
+2009-08-09 JSM
+Soft rev lim now uchar to allow up to 25deg retard
+
+2009-08-11 JSM
+Fix stepper idle. Got broken on 2009-06-16
+Fix idle test mode 'home' feature.
+Allow idle test when rpm=0
+
+2009-08-11 KWC
+Fix ReqFuel calc issue (untested).
+
+2009-08-12 KWC
+Combine CL idle dialogs. Also move all idle to its own menu.
+
+2009-08-13 JSM
+Changed rev limit to make it 3 stage.
+Allow slower PWM idle frequencies.
+Max AFR safety system.
+Display CL AFR target even when in openloop, so AFRerror gauge makes sense.
+Launch fuel addition
+Negative nitrous fuel addition
+MAT/CLT %age calc vs. rpm
+Standard AE now in %ReqFuel to make it independent of injector size
+Own setting for trailing dwell.
+Start on VSS.
+
+2009-08-14 JSM
+VSS input ports defined. Basic testing.
+
+2009-08-15 KWC
+Merge X-tau from standard ms2 code. What a pain...
+Need to do a better job synchronizing X-tau code running with injection.
+
+2009-08-16 JSM
+Implement 2nd VSS sensor, two shaft speed sensor inputs and stall timeouts on all four.
+
+2009-08-17 JSM
+MaxAFR LED output
+Analogue VSS as well as digital
+Split main_init due to size
+Moved nitrous to function.
+Progressive nitrous - two stage, time or rpm based
+Rewrote outputs for on/off nitrous.
+ReqFuel / AFR / Stoich switching
+Fix bug with afrload (happened since last snapshot.)
+
+2009-08-18 JSM
+Add config data for water inj, rpm based dwell and VSS based boost.
+
+2009-08-19 JSM
+Fixes to test mode.
+Fixes for non-8 cylinder non-seq on MS3X outputs.
+Fix nitrous "injector" outputs (wrong port.)
+Fix casting error in analogue VSS inputs.
+RPM based dwell - "time after spark" mode only
+VSS based boost.
+Typo bug in inj.c causing me 4x fuel.
+Some changes to get rid of compiler warnings.
+
+2009-08-20 JSM
+DO use the tables[] array for flash addresses. Changes in serial and data burner to use this data.
+Water injection.
+
+2009-08-21 JSM
+Add some semaphores to port setting - more work required.
+SDcard init tweak. A retry seems to fix my troublesome 4G card.
+
+2009-08-22 KWC
+HUGE changes in main. Some flash rearrangement. 
+Rearrange main so EAE happens after all other fuel calcs.
+Convert huge sections of main to functions (easier to figure
+out ordering, etc..)
+All appears to work.
+
+2009-08-23 JSM
+Semaphore bugfix
+
+2009-08-24 JSM
+VSS inputs > 7 weren't working due to init error
+
+2009-08-27 JSM
+(Not committed the SD compression yet)
+Semaphore typo fix.
+
+2009-08-28 KWC
+Add new staging mode that stages based on an 8x8 table. Hopefully this
+helps with throttle response issues, etc on rx7's.
+
+2009-08-29 JSM
+VSS interrupt code bugfix. Could have caused code lockup.
+
+2009-08-31 KWC
+Fix for KeithG's engaging the clutch without throttle after PID
+is engaged bug does not cause a stall on the next PID engagement.
+
+2009-09-03 JSM
+Committing SDcard readback compression code. Still some bugs to work out. Certain files don't work.
+Increased SPI baudrate by 50%
+
+2009-09-04 JSM
+Make time-after-spark dwell/rpm curve actually change the dwell time.
+
+2009-09-09 JSM
+Initial port states (not complete)
+Add code to firmware loader to preserve sensor calibrations and MSQ over a reflash.
+Update Makefile to suit with new data in s19
+Bugfix in sensor calibration. Got broken when compression added.
+
+2009-09-10 JSM
+Tweak to firmware loader.
+Port states not changed on first boot.
+Low voltage check in init.
+Expose battery voltage calibration.
+Time-after-spark pin state on ign_kill.
+
+2009-09-11 JSM
+Init change.
+Moved stream logging from rtc to pit. Runs every 0.125ms instead of 0.128ms.
+Magic number stored at byte 63 in log blocks 1 onwards.
+
+2009-09-12 KWC
+Loader work. Particularly for Windows.
+
+2009-09-15 KWC
+More Loader work. Added menu mode (when called without args).
+Also fixed compiler warnings for everything in utils directory.
+
+2009-09-18 JSM
+Compressed SD readback improved. Now supports retry. CRC still to be added.
+CRC32 added to SD readback and sd_sync. Readback close to fully utilising 115k
+
+2009-09-19 KWC
+A couple more loader tweaks.
+
+2009-09-21 JSM
+SD readback detects EOF. Speeds up sending of short incomplete logs.
+
+2009-09-21 KWC
+Make Timing error 1% units instead of .1% units... makes it easier
+to pick out actual error vs jitter.
+
+2009-09-22 JSM
+SD readback - added erase file command. Appears to work.
+sd_sync2 now erases files from SD card, uncompressed the fetched file and saves
+to a date/time stamped filename. Tested under Linux and cygwin.
+Added CRC32 'k' serial command
+k <CANid> <block> 00 00 00 04    returns CRC32 of whole (1k) block
+
+2009-09-27 KWC
+Make closed loop idle use VSS optionally to determine when to go into closed
+loop mode.
+Make EGO afterstart delay configurable.
+Add CL boost control lower limit, and fix water injection ini var locations.
+
+2009-09-30 JSM
+CAN updates for compatability with Jean's extender and MS2/Extra 3.0 code,
+only the 'infrastructure' part so far. Ports need considering more.
+
+2009-09-29 KWC
+EAE staged/DT curves added.
+
+2009-09-30 JSM
+EGT capture support. Local ADCs or a remote CAN board. Still to add action on EGT overtemp.
+Changed EGT temp scales to match other temps (0.1deg) because otherwise TS shows 10x temp.
+More CAN-isms for VSS
+
+2009-10-01 KWC
+Fix up default com port on win32 version of the ms3 loader.
+
+2009-10-05 JSM
+Fix CAN passthrough - different method to 2009-09-30
+
+2009-10-06/7/8 JSM
+Move Upgrade/LED spark to XGATE.
+Ran into big semaphore issue and then had to re-write the XGATE assembler.
+
+2009-10-09 JSM
+Implement Time After Spark on XGATE
+Move ign_in to paged memory
+Add MS3X rotary spark
+
+2009-10-10 KWC
+Merge parts of MAF from standard ms2, and make MAF work with ms3
+
+2009-10-10 JSM
+Fixup RX8 rotary leading via XGATE (and break normal in the process)
+
+2009-10-11 JSM
+Fix normal spark again.
+
+2009-10-13 JSM
+Remove fire_coil and use XGATE software trigger instead
+Move dwell to XGATE.
+Remove dwell_coil and use XGATE software trigger instead
+Remove spark and dwell S12X code.
+
+2009-10-13 KWC
+Fix a bug in crank-to-run taper for CL idle.
+
+2009-10-15 JSM
+Move rotary trailing to XGATE
+MS3X rotary leading and trailing work with XGATE code.
+VSSout pulsed output, scaled from input VSS.
+Fix Subaru 6/7 and get COP/'use cam' working - trivial fix.
+
+2009-10-15 KWC
+Fix sequential fuel cut.
+
+2009-10-16 JSM
+Fix boost PP3 random crash (pPTPpin+0x7 error)
+
+2009-10-16/17 KWC
+Add ITB load mode for NA engines with ITBs. Needs lots of docs.
+Also fix flash arrangement in ini file for second set of EAE params.
+
+2009-10-20 JSM
+Add more retries in SDcard code if init fails. Longer timeout is SPI.
+Merge NGC 2.2/2.4 alternate cam code (from MS2/Extra 3.0 test version)
+num_cyls ini fix and init
+
+2009-10-21 JSM
+Re-write EDIS mode to work like a standard wheel and allow cam-sync.
+Fix fuel only.
+Fix JS10 as an output.
+SDcard speed test utility and firmware
+Tweak comp-loggers to not cause sync-loss. Tooth and trigger appear broken though.
+Fix tooth and trigger loggers.
+
+2009-10-22 JSM
+SDcard init retry actually retries now.
+AFR safety now a difference instead of absolute AFR
+
+2009-10-23 JSM
+VSS scaling fix
+More VSS/CAN code
+Fix bug causing FAT16 delete to corrupt FAT.
+Stop creation of empty logfile on SDcard when sd_sync resets firmware
+
+2009-10-24 JSM
+Support SD cards formatted without partitions 'VBR' like Windows will do.
+Allow for up to 64 (256) wheel modes.
+Work on a serial issue.
+
+2009-10-25/26/27/28 JSM
+Added range checking to CAN and serial transaction.
+Eventually find serious intermittent data corruption problem. Simple fix. 
+
+2009-10-28 JSM
+Extend CAN protocol to allow 32 tables.
+Fix remote CAN tuning.
+
+2009-10-30 JSM
+VSS 32bit issues
+Fix SDlog page size to allow range checking
+Adaptive VSS averaging.
+Generic sensor inputs. Use datax1 structure for raw CAN collected ADCs. Use outpc for transformed output.
+
+2009-10-31 JSM
+Re-write injector opening time to use a base value for each injector and a correction curve.
+(Easier for backwards compatability and understanding.)
+
+2009-11-01 JSM
+Fixed "same as MAP" generic sensor.
+Added some EGT config data.
+
+2009-11-04 KWC
+Added EAE load vars to outpc
+
+2009-11-05 JSM
+Rewrite "Basic trigger" to calc spark delay in ISR for better response
+Rewrite "Trigger return" to work more like MS1 and use the dizzy code.
+Rewrite "Twin Trigger" closer to the BG code with a timer per channel.
+Work on 1,2,3 cylinder engines to get correct rpm and no. squirts.
+
+2009-11-07 JSM
+Launch/flat shift/3step now have semi-adaptive spkcut to reduce overshoot.
+
+2009-11-10 JSM
+Add gear detection based on rpm/vss or ADC input
+CAN fetch of gear number incomplete
+Add vssdot
+Added some other placeholders in outpc
+Add Nissan QR25DE wheel mode. Trigger angles/teeth uncertain.
+
+2009-11-10 KWC
+Make CL idle lockout settings less prone to false triggering.
+
+2009-11-11 JSM
+CAS360 code, Optispark decoder. Needs angles setting and physical testing.
+
+2009-11-12 JSM
+Optispark sync and re-sync improvements.
+Mods to stall timeout that might help starting.
+
+2009-11-13 KWC
+Get rid of rpmdot_disablepid setting for pid idle. Replace it
+with a check for rpm > thresh... PID can still be enabled above
+this threshold, but it won't save its last value.
+
+2009-11-15 JSM
+Fix incorrect VSSdot time period variable size. Works now.
+Calculate "small pulsewidths" after trim but BEFORE opening time is added.
+
+2009-11-16 KWC
+Fix rpmdot to be much more smooth and usable by PID idle. Add back rpmdot_disablepid for testing.
+More fixes for rpmdot. Need to be backported to ms2/extra.
+Made as much IO as possible use a generic IO function. Commonized all I/O. Commiting with only very basic testing. NEEDS TONS OF TESTING. Also needs all pin IO defaults reset.
+
+2009-11-17 JSM
+Re-wrote PIT VSS/SS section to use a 16 bit x 50us counter
+VSS ini corrected
+SS working
+
+2009-11-17 KWC
+Fixed open-loop boost and boost output problems (was using the tacho
+out instead).
+
+2009-11-22 KWC
+Add AC idleup and fan control + idleup.
+
+2009-11-22 JSM
+Check NUM_TRIGS against max.
+
+2009-11-27 KWC
+EAE was broken when not using 2 alt. As a result, changing the number
+of squirts would change the behavior of EAE. This is now fixed.
+Fix Idle speed control ramp to target when starting above RPM with
+valve open.
+Fix VE table 3 in the ini. It was scaling by 1.0 instead of 0.1
+
+2009-12-03 JSM
+MS3X cam input only working in "trigger wheel" due to typo. Fixed.
+Mask ram4.no_cyl to only check the correct bits.
+
+2009-12-05 JSM
+Fixed problem with tooth #1 angle close to 360deg.
+Fixed old bug with rising and falling.
+Add 2nd trigger option to reset every cylinder. Useful for single coil Denso CAS applications.
+Re-organised CAN ADC settings and internal usage, limited testing.
+
+2009-12-06 JSM
+Accelerometer support
+More CAN data capture tidying. VSS and gear CAN code incomplete.
+Fix testmode breakage.
+NGC8 first phase.
+
+2009-12-12 JSM
+Seq injectors went into auto-pilot in stim testing where rpm goes from >3000 immediately to low revs, due to backscheduling.
+
+2009-12-14 JSM
+Fix low voltage detect config error.
+
+2009-12-15 JSM
+Get spark faster on start.
+Position array at next event.
+
+2009-12-17 JSM
+Get fuel faster on start when in sequential.
+ini fix for ign load
+More SDlog vars
+and more.
+
+2009-12-20 JSM
+Fix sequential scheduler for negative angles
+Get fuel and spark earlier during start.
+Fix double fuel pulse during crank
+Make sure fuel calcs run during crank.
+Position map array at next event during start.
+Position fuel array at next event during start.
+
+2009-12-21 JSM
+Workaround for intermittent XGATE hang.
+Stop false 'Need Burn' on boot.
+Fix logic error introduced with 'every cylinder' 2nd trigger mode.
+
+2009-12-23 JSM
+Clear trigger/tooth logger buffer from mainloop.
+Add more XGATE debug.
+
+2009-12-26 JSM
+Fixup some config error numbers
+
+2009-12-27 JSM
+Add dedicated LS1 wheel mode. Only needs crank for W/S
+Split ign_in into two pieces as it was too large
+Some LS1 testing
+Make tooth logger work as expected with double edged crank triggering
+
+2009-12-28 JSM
+LS1 tweak (tested on COP/Seq engine)
+Add automatic polarity noise filter.
+Actually enable normal crank polarity check.
+
+2009-12-29 JSM
+Implement faster sync for dual+missing with rising+falling.
+
+2009-12-30 JSM
+SEMI/SEMI2 not getting cleared on SYNC in some ignition modes, causing rpm but not fuel or spark.
+
+2009-12-31 JSM
+Flood clear now does prevent pump prime (outpc.tps now calculated in time)
+
+2010-01-03 JSM+KC
+Re-write injector output method on XGATE+S12X. Now uses 50us down counter for on-event. TIM for off-event.
+
+2010-01-05 JSM
+Change SPKMODE4 to NOT use rolling average for missing tooth detection.
+Fix "one-behind" inj schedule updating. (Last event not updated correctly.)
+Bound inj_ang.
+
+2010-01-08 JSM
+RC51 / FSC600 wheel modes
+
+2010-01-11 JSM
+Fix priming on std fuel non-seq
+Fix added fuel with launch
+
+2010-01-11 KWC
+Make first stab at windows port of sd_sync2
+Fix narrowband EGO in the ini file.
+
+2010-1-13 JSM
+Fix 'launch' input conflict for launch.
+
+2010-1-16 JSM
+ASE bugfix.
+
+2010-01-17 KWC
+Fix AFR table with narrowband EGO
+Make EGO active below MAP and above MAP load instead (Andy Whittle)
+
+2010-01-19 JSM
+Make syncfirst changes conditional on rpm to prevent high rpm sync failure
+
+2010-01-23 JSM
+Fix 60-2+cam triggers bug
+Fix for incorrect trigger teeth on V2 oddfire w/s.
+syncfirst was not working correctly with V2 evenfire w/s (no_triggers==1)
+
+2010-01-24 KWC
+Add initial support for sequential staging. Still needs work in rotary mode
+(occasional lost on-event).
+
+2010-01-26 JSM
+CRC32 check while in config error too.
+Dual+missing with odd-fire or 5cyl could generate invalid trigger teeth.
+Comment WCOP feature.
+
+2010-01-26 KWC
+Fixed rotary mode for staged injection.
+
+2010-02-03 JSM
+rpmdot tweaks. Improve high rpm stability and low rpmdot smoothness
+vssdot uses squares too
+MAT sliding window average
+--snapshot--
+CLT, BattV sliding window average
+Calc mapdot at same time as tpsdot every 10ms.
+Add YZF1000 wheel mode (untested)
+Support 32-2 in wheel decoder (untested)
+
+2010-02-04 JSM
+Fully remove WCOP
+Calc rpm from tooth time before first rpm period.
+
+2010-02-05 JSM
+Fix vss/rpm gear calc scaling
+Bike ignition cut (automatic untested)
+
+2010-02-07 JSM
+Added another 4k of config data
+Add Generic openloop PWM tables
+ini makes many datalog fields conditional
+shift_cut out was using wrong port pins in ini
+
+2010-02-08 JSM
+vssout, waterin outs now using generic_IO
+
+2010-02-08 KWC
+Make > 4 cyl staging work by using v3 injector outs for secondaries (uses
+2 squirts alt so reqfuel doesn't have to be different for secondaries).
+While I'm at it, upgrade mode (using v3 for batch injection) is now done
+fully on XGATE.
+
+2010-02-09 KWC
+Clean up old injector routines. Remove them since they are no longer used.
+
+2010-02-10 KWC
+Clean up comments in wheel decoder calcs.
+Make Rotary negative split limit much more negative
+
+2010-02-15 JSM
+CAN-enable CRC32
+--snapshot--
+
+2010-02-16 JSM
+Fix floodclear
+Fix V3 injector init
+Stream log ports in ini file were misaligned
+PT4 output and Datalog button input working again.
+
+2010-02-17 JSM
+Fix high rpm resync problem with noise filter.
+
+2010-02-18 JSM
+CRC check wasn't working in test mode.
+Make inj_cnt into an array
+Get injector test mode working again.
+Fix AFR2
+Fix trim table / cylinder numbers
+Make seq pulsewidth numbered by cylinder i.e. seq pw 3 = cylinder 3.
+Add support for 8 EGO inputs
+Mapping table from EGO to injector channels
+Disabled Dual-table - will re-appear as dual-fuel.
+Disabled AFR table switching - will re-appear.
+Enabled trim on inj1/2
+(All these need more testing)
+Fix ini error with load on spark trim
+
+2010-02-20 JSM
+Put AFR switching back in again, remove choice of AFRtgt from EGO.
+Fix outpc data readback with 'A' command.
+Port over Weber-Marelli changes from MS2/Extra
+Use ENGINE_ defines throught.
+Include egocors in serial realtime data.
+Set egocors to 100% in init
+
+2010-02-20 KWC
+Fixed TPS going negative triggering staging
+Fixed Trim on <= 4 cylinder sequential staging.
+Fix the default configuration so that ms3x outputs
+work with untimed injection.
+Make sequential pulse-width outputs in outpc go to 0 on engine stop.
+Commit Gear-based Boost control
+
+2010-02-21 JSM
+Dual fuel work. "Master switch" on VE, Spk, AFR, Stoich, ReqFuel.
+Mods to table switch code.
+Switching crank, prime, ASE, WUE, inj settings, smallpw
+Inj PWM params now stored in variables. Easier switching and removes code from XGATE.
+Added VE4 and Ign4 to allow blending with table switching
+Set spk2 and spk4 to default all zeros - makes more sense with additive.
+
+2010-02-22 JSM
+Dual fuel pressure/temp adjustment.
+For 1/2 EGO sensors, use existing egocor variables. (With >1 apply at seq_pw level)
+Spark table switching was stuck on if dual fuel was enabled.
+
+2010-02-23 KWC
+First part of fix for semi-seq staged injection.
+
+2010-02-24 JSM
+More EGO work. Old behaviour if none or one sensor. (>1 EGO not yet re-tested)
+Show all 10 injector pulsewidths.
+Fix bug with V3 injectors getting max pulsewidth instead of zero.
+(ini) allow setting all MS3X inj params when not 8 cyl for staging use
+semi-seq zero rpm bugfix
+Allow single setting for MS3X injector parameters
+
+2010-02-25 KWC
+Fix gear based boost so that table 2 is >= the user-set gear instead of <
+Allow higher than 100% for boost PID parameters.
+
+2010-02-26 JSM
+For debug - verify ram during init to ensure flash copied correctly. If not config error.
+For debug - config error if skip pulses > 10
+Change a few defaults.
+Use bitmasks when setting up vss and maxafr to avoid config errors if random data got burned to the unused bits.
+Bitmask on NoInj and allow up to 16 injectors
+
+2010-02-27 JSM
+Switchable overboost
+Overboost and boost table switching available in dual fuel
+Likely fix for settings changing mysteriously - range check tooth logger
+
+2010-02-28 KWC
+Make trim work in non-seq modes if ms3x outputs are used.
+Make staging work with ms3x in non-seq modes.
+Make EGO per cyl work with ms3x in non-seq modes. (minimally tested)
+Make semi-sequential staging work.
+
+2010-03-01 JSM
+High rpm resync broke map sampling. Simple code error.
+
+2010-03-02 JSM
+Overboost and boost sw were using wrong config var.
+
+2010-03-04 KWC
+Remove an unused variable from boost control.
+
+2010-03-06 KWC
+Merge new interpolation routines from MS2 (robs).
+
+2010-03-07 JSM
+Fix up some issues with spare ports and add "Tacho" as an option.
+
+--snapshot--
+
+2010-03-08 JSM
+Fix tooth and trigger loggers. Both data and short sampling.
+
+2010-03-08 KWC
+Fix staging graying in ini.
+Add placeholder config options for staged secondary output config.
+
+2010-03-13 KWC
+More fixes for staging graying.
+Add the ability to select using v3 outputs for secondary injectors on <= 4 cyl
+Add the ability to select simult vs alt on secondaries when using v3
+
+2010-03-18 JSM
+Add config error for broken CAN transceiver and prevent it from locking up chip.
+Allow 'soft' config error
+Change config error to be a little less annoying.
+
+2010-03-20 JSM
+Fixed a few default settings
+Allow tooth#1 angle and trigger angle to be changed in realtime
+Generic PWM temperature units. Y axis upper limit.
+
+--snapshot--
+
+2010-03-22 JSM
+HEI bypass available on MS3X SpkB
+
+2010-03-25 JSM
+Add more input pin options for knock and use *port method.
+
+2010-03-29 JSM
+Rewrite missing tooth decoder. Doesn't re-check cam after sync.
+Crank and cam polarity checks always on when possible. (init)
+
+2010-03-29 KWC
+Make "different outputs" options work for dual fuel.
+Fix semi-seq on ms3x outputs (some configs now generate a config error)
+(huge amount of work for not much in the changelog).
+
+2010-03-30 JSM
+EDIS trigger wizard wasn't working after reboot
+Updated ini and base data to work better with CRC
+
+2010-03-31 JSM
+Single trim settings. Make code works as expected for V3 vs. MS3X trim.
+Back out ASM intrp_2dcstable as it broke trim calculation.
+Read datasheet for idiv with eyes open and fix interp.s
+
+2010-03-30 (EDT) KWC
+Back out fix using idiv and instead just fix the pre-scaling for 2dcst. This
+way we don't have to use idiv (save a few cycles).
+
+2010-03-31 JSM
+Fix overflow with latency > 32us
+
+2010-04-01 JSM
+Get Optispark doing something again (not useable yet)
+Fix xg_conf.s problem with Freescale datasheet code causing horrible crash.
+Start of SPKMODE33
+
+2010-04-02 JSM
+Allow remote CAN digital input port for many features. Had to move config data around to do this.
+Add framework for CAN digital outputs and PWM outputs. Nothing using them yet.
+Fix (not) Generic Sensors linear transform.
+Move ram8,9,10,11 to make space for extended XGATE code.
+Extend spare ports to include 16 CAN extended pins.
+Move spare port data (huge) to ram23
+
+2010-04-06 JSM
+Generic Sensors linear transform wasn't working due to gcc mishandling of inline. Working now.
+EGT was assuming 12bit ADCs and had transform error for degC.
+
+2010-04-07 JSM
+Noise filter setup wasn't checking for EDIS (not allowed)
+
+--snapshot--
+
+2010-04-14 KWC
+Add ITB mode settings for the kPa switchpoint and for a TPS threshold so that
+if the throttle is closed, there is no way to get into alpha-n mode.
+
+2010-04-15 JSM
+Apply Phil Tobin's ini tweaks to prevent spare ports mangling.
+Allow AC idle up to have "Off" output.
+
+2010-04-16 JSM
+AC and fan idle up tweak to work with IAC and PWM warmup
+
+2010-04-20 JSM
+Apply 17deg offset and swap outputs on QR25DE
+Tested CANIN and CANOUT ports ok.
+
+2010-04-20 KWC
+IAC after start looks fine.
+Added idle VE.
+
+2010-04-21 JSM
+Use outpc for can i/o port vars
+CAN extended generic PWM outputs.
+CAN extend FAN and AC
+Add more outputs for tacho.
+
+2010-04-21 KWC
+Make AC pin input check for low not high.
+Modify ini file to make GUI layout make sense.
+
+2010-04-22 JSM
+Grab RTC via CAN and apply to SD logs.
+Support Innovate serial EGO data via CAN
+
+2010-04-23 JSM
+Combine EDIS noise filter settings with other modes and a few tweaks to calcs.
+Nitrous can use AFR2 for AFR safety
+EGT overtemp actions
+AFR safety can use CANouts for indicator
+
+2010-04-25 KWC
+Make D14 (inj LED) work again with seq/non seq. It acts more like a tacho
+LED now though.
+
+--snapshot 0.22--
+2010-04-28 JSM
+SD - handle corrupt file (err 11)
+SD - add error flash codes
+
+2010-04-29 JSM
+vss_an and boostvss_speed unit conversions were wrong.
+Innovate serial via CAN. +0.5 part of calc was missing.
+
+2010-04-29 KWC
+Add KeithG's AC idleup max decel load adder to AC idleup.
+
+2010-05-03 JSM
+Crank pw in sequential ignored no. squirts setting
+
+2010-05-06 JSM
+Boost control medium frequencies aligned with ones for idle (85Hz->50Hz) 50Hz setting actually gives 48Hz
+
+2010-05-06 KWC
+Fix Crank->run taper on warmup modes.
+
+2010-05-09 KWC
+Fix more staged injection ini greying problems.
+
+2010-05-14 JSM
+Change launch/flat shift options. Replace adaptive spark cut with additional fuel cut.
+Default idle = off.
+
+2010-05-15 JSM
+Fix semi-seq pulsewidth on MS3X outputs
+Keep correct internal ReqFuel if Alternate/No.squirts etc changed while running.
+Implement sensor calibration lock and config error.
+
+2010-05-16 KWC
+Fix for CL idle getting stuck when RPM ends up above the max RPM.
+
+2010-05-18 JSM
+WI fixed valve output init. Ensure WI off at stall.
+
+2010-05-19 JSM
+Realtime data copied to txbuf in foreground but sent by interrupt code.
+
+2010-05-20 KWC
+More fixes for IAC warmup only.
+
+2010-05-21 JSM
+Fan control - allow fan on when engine stalled
+Add GM sensor lookup table for generic sensors
+Fix for outpc.seconds serial sending.
+
+2010-05-22 JSM
+Serial timeouts
+Set all port/pin values to safe values in init
+Changed serial txmodes for TX to better differentiate send/receive phases.
+Call srl_abort if send/receive mixed up
+Add reason codes for srl_abort
+dribble_burn was writing beyond end of page. End values miscalculated. (Fixes VE1 corruption issue.)
+
+2010-05-23 JSM
+Add more status bits and indicators for features
+Slow down rpmdot calc. Min 10ms interval
+
+2010-05-23 KWC
+Add fuel cut lower RPM for re-engaging fuel.
+Fix MAF so that IAT isn't included in the fuel equation.
+
+2010-05-25 JSM
+Adjust LS1 wheel mode by 15deg. (Equiv of offset of -15)
+
+--snapshot 0.23--
+
+2010-05-29 JSM
+Serial error message should be more meaningful.
+
+2010-05-31 KWC
+Bump to 0.24 version number.
+Add stage fully to secondaries option for staged injection.
+Fix some staged injection transition bugs.
+Fix seq injection timing by setting cycle_deg only in the proper place
+
+--snapshot 0.24--
+
+2010-06-04 JSM
+LC1/CAN data calc error fixed.
+
+2010-06-07 JSM
+Add support for I2C realtime clock.
+Serial changes for 0.23 broke tooth loggers. One line fix.
+Tweak in serial code.
+
+2010-06-10 JSM
+Init update
+ini tweaks
+
+2010-06-11 JSM
+Put fix in place for very rare crash from loading MSQ while engine running.
+
+--snapshot 0.25--
+
+2010-06-11 JSM
+Re-wrote trigger calculator for wheel decoder (and dizzy). Limited bench testing.
+Add fan indicator
+
+2010-06-19 JSM
+Tidy up default data to get rid of INVALIDs.
+
+2010-07-12 JSM
+Change injection semi-seq outputs to share same wiring as full seq.
+Some default data tweaks for launch/3-step.
+
+2010-07-12 JSM
+Re-add rpm!=0 code.
+Turn off transmit txmode0 error
+
+2010-07-13 JSM
+Tweak to new semi-seq code
+
+2010-07-18 JSM
+Re-implement WCOP
+Add wasted-COP spark mode (fires coils in pairs with COP wiring)
+Launch, SDlog button, ACin, shiftcut pin now treat nitrous pin as active high.
+
+2010-07-19 JSM
+EDIS mode gives soft sync error if cam signal missing/wrong in sequential mode
+
+2010-07-25 JSM
+Baro can use on-board sensor. ini tweak.
+Allow baud rate to be changed again (9600, 19200, 38400, 57600, 115200)
+
+2010-07-25 KWC
+Fix reqfuel calcs WRT the number of injectors selected. This was making
+the amount of fuel injected on the rotary engine 2x what it should've been.
+Add back old injector semi-seq settings from ms2/extra 2.x for backwards compat reasons
+
+2010-07-28 JSM
+Tweaks to SD card initialisation regarding retries and such.
+
+--snapshot 0.26--
+
+2010-08-01 KWC
+increase range for map sampling.
+
+2010-08-02 KWC
+Got the if logic backwards for reqfuel calcs WRT # of injectors. Fix that.
+
+2010-08-03 JSM
+Semi-seq didn't work correctly with cam speed trigger wheel or dual+missing.
+ini tweaks
+Add config error for impossible sequential.
+
+2010-09-03 JSM
+Merge in PW4X changes.
+Fix many ini errors detected with Megatune parser.
+
+2010-09-06 JSM
+SD card work. Initialises ok on three previously non-working cards. Tested ok on eight cards here.
+
+--snapshot 0.27--
+
+2010-09-20 JSM
+Fix IAW-Weber. (One line deleted in error on 20th Feb)
+
+2010-09-25 JSM
+Revise serial config error message
+Don't give seq config errors in log crank/cam modes
+ini tweaks
+Change theoretical serial hang (should never have got to that piece of code.)
+
+2010-09-27 JSM
+Fix spark table switching cut/paste bug
+
+2010-09-28 KWC
+Add staging secondary timing tables. Not yet using them.
+Make sure to zero AC idleup vars so they work even when the AC
+button is pressed with the throttle down.
+
+2010-10-04 JSM
+Add more checks for pulsewidth overflow.
+Fix ign_wheel triggers problem with certain tooth#1 angle on dual+missing and -2 wheels (2 bugs)
+ini tweaks
+
+2010-10-04 KWC
+Add secondary injector timing for dual fuel/staged injection
+
+2010-10-06 JSM
+pwcalc2 had deadtime added twice
+
+--snapshot 0.28--
+
+2010-10-08 JSM
+Fix for no wasted spark until cam in dual+missing (Runs without losing sync even if cam never comes.)
+
+2010-10-11 JSM
+Resolve logical error in previous change. 
+
+2010-10-13 JSM
+O2 NB volts in ini
+Change "rising and falling" name to "poll level" and "low" and "high" as sub options.
+
+2010-10-14 JSM
+Poll level bug fixes, was sometimes starting on wrong phase, then losing sync.
+Under and overdwell in wrong time units (2/3 us tick)
+
+2010-10-14 KWC
+Make AC/fan idleup work when engaged and valve not closed yet.
+
+2010-10-23 JSM
+Fix 'a 00 06' for Megaview
+Support temperature units for Megaview
+Fix 'c' serial command
+Add MAF calibration section to ini
+Fix maths on Megaview changes
+
+2010-10-23 KWC
+Make narrowband EGO use volts again.
+Add closed loop idle option to leave the valve closed when shifting.
+Add TPS and VSS shutoff options for ac and fan idleup.
+If AC idleup and fan control are turned on, AC on turns on the fan.
+
+2010-10-29 JSM
+SCI tweaks
+Added missing code for CAN VSS and gear.
+
+--snapshot pre 1.0 RC1--
+
+2010-10-30 JSM
+Support SpkAdj for CAN devices
+
+2010-11-03 JSM
+Added some semi-seq config errors.
+Fix 1 cyl seq fuel
+
+2010-11-05 JSM
+Test mode / serial fixes.
+1/2 cyl V3 seq trim
+
+2010-11-06 JSM
+SD log LED supports full range of outputs
+Change QR25DE phasing
+
+--snapshot pre 1.0 RC2--
+
+2010-11-09 JSM
+MAP sampling X events
+MAP sampled again if sync never gained
+
+2010-11-09 KWC
+Fix water inj conf err
+
+-- Branch 1.0 --
+
+

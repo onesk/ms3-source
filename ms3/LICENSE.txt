@@ -1,0 +1,49 @@
+MS3 firmware license - 10 August 2014
+======================================
+The MS3 firmware is copyrighted 2007,2008,2009,2010,2011,2012,2013,2014
+James Murray and Kenneth Culver.
+
+Permission is given to use the "S19" file and accompanying "INI" only on
+official hardware:
+A. Bowling and Grippo (B&G) MS3 (Megasquirt-3) hardware,
+  marked "MS3 v0.1 (C) 2009" and only with a Bowling and Grippo mainboard.
+B. "MS3-Pro" from DIYAutoTune.com, marked "MS3-Pro V0.1 (C)2012"
+C. "MS3-Pro module" from DIYAutoTune.com, marked "MS3-Pro Mod V1.0 (C)2012"
+D. "MS3-Gold" from AEA/EFISource marked "V1 (C)2013"
+It is not permissable to use the "S19" file on other hardware; or the "INI"
+file to tune other hardware.
+
+Permission is given to include the "S19" and "INI" files on CDs or other
+distribution media accompanying the sale of licensed hardware, kits
+or assembled systems ONLY in the case where this LICENSE file is provided
+intact. Equally CD images or zip files provided on Megasquirt vendors sites
+are permitted only when this LICENSE file is provided intact.
+For MS3 cards or complete systems supplied with firmware pre-loaded, this
+LICENSE must be provided in printed form.
+
+It is not permitted to reverse engineer or attempt to derive source code from
+the provided "S19" file.
+
+No fitness for purpose or warranty is provided with the code. It is the sole
+responsibility of the user to determine whether the code and system is suitable
+for their intended application.
+
+It is a condition of this license that you absolve, indemnify and hold harmless
+the developers, resellers, manufacturers and distributors from any liability
+arising from direct or indirect use of the firmware. Use of the firmware is
+entirely at your own risk and liability. If you are not prepared to accept this,
+you are not permitted to use the firmware.
+
+MS3 is not designed for use in safety critical systems or pollution controlled
+vehicles.
+
+Support and product information for MS3-Pro can be found via 
+www.DIYAutoTune.com.
+
+General MS3 support and product information can be found via www.msextra.com
+
+This license gives the user the right to use this firmware indefinitely on
+MS3-Pro or MS3-Pro module based ECUs.
+
+This license gives the user the right to use this firmware indefinitely on
+other MS3 product purchased on or before 1st November 2015. 

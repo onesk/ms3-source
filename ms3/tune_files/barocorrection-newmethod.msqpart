@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<msq xmlns="http://www.msefi.com/:msq">
+<bibliography author="TunerStudio MS(Beta) 2.0.5d - EFI Analytics, Inc." tuneComment="" writeDate="Tue Sep 25 19:42:55 BST 2012"/>
+<versionInfo fileFormat="4.0" firmwareInfo="MS3 pre-1.2 alpha 2   20120925 18:14BST (c) JSM/KC ********" nPages="15" signature="MS3 Format 0251.001"/>
+<page number="0" size="1024">
+<constant digits="0" name="bcormult" units="%">0.0</constant>
+<constant digits="1" name="bcor0" units="%">0.0</constant>
+</page>
+<page number="1" size="1024"/>
+<page number="2" size="1024">
+<constant cols="1" digits="1" name="baroCorrDelta" rows="9" units="%">
+         100.0 
+         100.0 
+         100.0 
+         100.0 
+         100.0 
+         100.0 
+         100.0 
+         100.0 
+         100.0 
+      </constant>
+<constant cols="1" digits="1" name="baroCorrVals" rows="9" units="kPa">
+         65.0 
+         70.0 
+         75.0 
+         80.0 
+         85.0 
+         90.0 
+         95.0 
+         100.0 
+         105.0 
+      </constant>
+</page>
+<page number="3" size="1024"/>
+<page number="4" size="1024"/>
+<page number="5" size="1024"/>
+<page number="6" size="1024"/>
+<page number="7" size="1024"/>
+<page number="8" size="1024"/>
+<page number="9" size="1024"/>
+<page number="10" size="1024"/>
+<page number="11" size="1024"/>
+<page number="12" size="1024"/>
+<page number="13" size="1024"/>
+<page number="14" size="1024"/>
+</msq>

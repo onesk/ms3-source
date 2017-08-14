@@ -1,0 +1,43 @@
+MS3 source code license - 11 July 2014
+======================================
+
+The MS3 code is copyrighted 2007,2008,2009,2010,2011,2012,2013,2014
+James Murray and Kenneth Culver.
+It is a commercial product. (i.e. it is NOT "open source")
+
+For compiled code (s19) see LICENSE.txt
+
+This license applies to the package of source files that are used to create the
+ms3.s19 and ms3pro.s19 compiled code.
+
+This source code may only be used with official hardware:
+A. Bowling and Grippo (B&G) MS3 (Megasquirt-3) hardware,
+  marked "MS3 v0.1 (C) 2009" and only with a Bowling and Grippo mainboard.
+B. "MS3-Pro" from DIYautotune.com, marked "MS3-Pro V0.1 (C)2012"
+C. "MS3-Pro module" from DIYautotune.com, marked "MS3-Pro Mod V1.0 (C)2012"
+D. "MS3-Gold" from AEA/EFISource marked "V1 (C)2013"
+
+It is not permissable to use the "S19" or "INI" files on other hardware, nor is
+it permitted to copy sections of the sourcecode for any non MS3 product.
+
+You are permitted to modify the source code as you wish for use on your own
+MS3 card, MS3-Pro or MS3-Gold ECU. Re-distribution of modified source or s19
+is only allowed if first approved by James Murray and Kenneth Culver.
+
+No fitness for purpose or warranty is provided with the code. It is the sole
+responsibility of the user to determine whether the code and system is
+suitable for their intended application.
+
+It is a condition of this license that you absolve, indemnify and hold
+harmless the developers, resellers, manufacturers and distributors from any
+liability arising from direct or indirect use of the firmware. Use of the
+firmware is entirely at your own risk and liability. If you are not prepared
+to accept this, you are not permitted to use the firmware.
+
+MS3 is not designed for use in safety critical systems or pollution controlled
+vehicles.
+
+Support and product information can be found via http://www.msextra.com
+
+This license gives the user the right to use this firmware indefinately on MS3
+product purchased on or before 1st November 2015.

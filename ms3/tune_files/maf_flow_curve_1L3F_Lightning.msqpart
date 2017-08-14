@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<msq xmlns="http://www.msefi.com/:msq">
+<bibliography author="TunerStudio MS(Beta) 2.0.8 - EFI Analytics, Inc." tuneComment="" writeDate="Wed Nov 14 15:03:33 GMT 2012"/>
+<versionInfo fileFormat="4.0" firmwareInfo="MS3 pre-1.2 alpha 7   20121113 21:26GMT (c) JSM/KC ********" nPages="15" signature="This calibration file is OK for firmware 1.2.x upwards"/>
+<page number="0" size="1024">
+<constant name="feature7_mafcalib">"Off"</constant>
+<constant name="MAFOption_t">"Voltage"</constant>
+<constant name="maf_range">"650g/s"</constant>
+</page>
+<page number="1" size="1024"/>
+<page number="2" size="1024"/>
+<page number="3" size="1024"/>
+<page number="4" size="1024"/>
+<page number="5" size="1024"/>
+<page number="6" size="1024"/>
+<page number="7" size="1024"/>
+<page number="8" size="1024"/>
+<page number="9" size="1024"/>
+<page number="10" size="1024"/>
+<page number="11" size="1024"/>
+<page number="12" size="1024"/>
+<page number="13" size="1024"/>
+<page number="14" size="1024">
+<constant cols="1" digits="3" name="mafv" rows="64" units="V">
+         0.0 
+         0.08 
+         0.16 
+         0.23 
+         0.31 
+         0.39 
+         0.47 
+         0.55 
+         0.63 
+         0.7 
+         0.78 
+         0.86 
+         0.94 
+         1.02 
+         1.09 
+         1.17 
+         1.25 
+         1.33 
+         1.41 
+         1.49 
+         1.56 
+         1.64 
+         1.72 
+         1.8 
+         1.88 
+         1.96 
+         2.03 
+         2.11 
+         2.19 
+         2.27 
+         2.35 
+         2.42 
+         2.5 
+         2.58 
+         2.66 
+         2.74 
+         2.82 
+         2.89 
+         2.97 
+         3.05 
+         3.13 
+         3.21 
+         3.28 
+         3.36 
+         3.44 
+         3.52 
+         3.6 
+         3.68 
+         3.75 
+         3.83 
+         3.91 
+         3.99 
+         4.07 
+         4.14 
+         4.22 
+         4.3 
+         4.38 
+         4.46 
+         4.54 
+         4.61 
+         4.69 
+         4.77 
+         4.85 
+         4.93 
+      </constant>
+<constant cols="1" digits="2" name="mafflow" rows="64" units="g/sec">
+0.00
+0.00
+0.04
+0.15
+0.33
+0.62
+1.02
+1.54
+2.20
+3.02
+3.99
+5.13
+6.45
+7.95
+9.66
+11.56
+13.68
+16.02
+18.59
+21.39
+24.44
+27.73
+31.28
+35.09
+39.17
+43.53
+48.17
+53.10
+58.32
+63.84
+69.67
+75.81
+82.26
+89.04
+96.15
+103.59
+111.37
+119.49
+127.97
+136.80
+145.99
+155.54
+165.46
+175.76
+186.44
+197.51
+208.96
+220.80
+233.05
+245.70
+258.76
+272.22
+286.11
+300.42
+315.15
+330.31
+345.91
+361.95
+378.43
+395.35
+412.73
+430.57
+448.86
+467.62
+      </constant>
+</page>
+</msq>

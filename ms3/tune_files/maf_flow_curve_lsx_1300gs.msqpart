@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<msq xmlns="http://www.msefi.com/:msq">
+<bibliography author="TunerStudio MS(Beta) 2.0.8 - EFI Analytics, Inc." tuneComment="" writeDate="Wed Nov 14 15:03:33 GMT 2012"/>
+<versionInfo fileFormat="4.0" firmwareInfo="MS3 pre-1.2 alpha 7   20121113 21:26GMT (c) JSM/KC ********" nPages="15" signature="This calibration file is OK for firmware 1.2.x upwards"/>
+<page number="0" size="1024">
+<constant name="feature7_mafcalib">"Off"</constant>
+<constant name="MAFOption_t">"Frequency"</constant>
+<constant name="maf_range">"1300g/s"</constant>
+</page>
+<page number="1" size="1024">
+<constant digits="1" name="maf_freq0" units="Hz">1000.0</constant>
+<constant digits="1" name="maf_freq1" units="Hz">14125.0</constant>
+</page>
+<page number="2" size="1024"/>
+<page number="3" size="1024"/>
+<page number="4" size="1024"/>
+<page number="5" size="1024"/>
+<page number="6" size="1024"/>
+<page number="7" size="1024"/>
+<page number="8" size="1024"/>
+<page number="9" size="1024"/>
+<page number="10" size="1024"/>
+<page number="11" size="1024"/>
+<page number="12" size="1024"/>
+<page number="13" size="1024"/>
+<page number="14" size="1024">
+<constant cols="1" digits="3" name="maff" rows="64" units="Hz">
+1000.00
+1204.75
+1410.25
+1615.50
+1821.25
+2028.25
+2232.00
+2439.00
+2645.50
+2849.00
+3048.75
+3257.25
+3460.00
+3663.00
+3875.75
+4081.50
+4291.75
+4484.25
+4694.75
+4901.75
+5102.00
+5319.00
+5524.75
+5714.25
+5917.00
+6134.75
+6329.00
+6535.75
+6756.75
+6944.25
+7142.75
+7352.75
+7575.75
+7751.75
+8000.00
+8196.50
+8403.25
+8620.50
+8771.75
+9009.00
+9174.25
+9433.75
+9615.25
+9803.75
+10000.00
+10204.00
+10416.50
+10638.25
+10869.50
+11111.00
+11235.75
+11494.25
+11627.75
+11904.75
+12048.00
+12345.50
+12500.00
+12658.00
+12987.00
+13157.75
+13333.25
+13513.50
+13698.50
+13888.75
+      </constant>
+<constant cols="1" digits="2" name="mafflow" rows="64" units="g/sec">
+1.77
+2.34
+3.05
+3.90
+4.91
+6.11
+7.47
+9.07
+10.91
+12.96
+15.24
+17.91
+20.83
+24.07
+27.85
+31.89
+36.45
+41.01
+46.47
+52.33
+58.48
+65.73
+73.18
+80.57
+89.06
+98.88
+108.28
+118.98
+131.24
+142.34
+154.82
+168.86
+184.75
+198.05
+217.95
+234.71
+253.31
+274.00
+289.12
+314.01
+332.25
+362.42
+384.67
+408.81
+435.08
+463.67
+494.86
+529.02
+566.42
+607.49
+629.52
+677.02
+702.54
+757.71
+787.44
+851.86
+886.78
+923.56
+1003.67
+1047.16
+1093.28
+1142.17
+1146.00
+1146.00
+      </constant>
+</page>
+</msq>

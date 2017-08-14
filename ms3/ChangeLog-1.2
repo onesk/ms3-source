@@ -1,0 +1,367 @@
+$Id: ChangeLog-1.2,v 1.1 2013/03/30 12:55:41 jsmcortina Exp $
+
+MS3 CHANGELOG 1.2
+=================
+
+HEAD/1.2
+
+2012-06-07 JSM
+Fix bug in loader when chip is in monitor mode
+
+2012-06-08 JSM
+TPSDQ=100
+
+2012-06-11 JSM
+Boost2 uses shared frequency settings
+Add PWM freq conflict checking
+Fix PWM idle not setting frequency
+Allow MAF and MAFMAP to be datalogged.
+Allow MAFMAP as secondary load w/o MAF as primary
+
+2012-06-14 JSM
+When mis-syncing at low rpms, dwell could be miscalculated causing spark hang-on.
+Use dtpred_local
+Shorten delayed_kill spark timer and kill on resync
+Don't run prime code if config error.
+Handle 100% duty cycle on non-seq MS3X. (Free up timerpool flag.)
+Reset MAPsample indicator every 1 second
+TCLU port/pin default to dummies
+
+2012-07-01 JSM
+Another check for MAXNUMTEETH
+
+2012-07-02 JSM
+MacOS loader detects correct serial port
+
+2012-07-05 JSM
+Fix alignment on xgqueue (was causing crash)
+
+2012-07-23 JSM
+Flip PORTB based on monitor version.
+
+(alpha0 ish)
+
+2012-08-13 JSM
+Fix tableswitching config error checking.
+Add RTCC trim.
+Tiny ini formatting fix
+
+2012-08-21 JSM
+Ensure "Fuel only" does not try to set dwell or spark flags.
+SCI1 handling.
+
+2012-09-19 JSM
+ini fixes and ASE,WUE display tweaks
+Fix serial lockup. (Ensure SCIxSR1 flags are cleared.)
+
+2012-09-19 KWC
+Rearrange boost control to be easier to read.
+ 
+2012-09-23 JSM
+Add 'x' command for ACK-less CAN passthrough write.
+Apply Jean's CAN/serial fixes for IOx.
+
+2012-09-24 JSM
+Config error caused hangup
+Don't give config error on per-cyl knock in log crank/cam modes
+
+(alpha1 ish)
+
+2012-09-25 JSM
+MAPlogger slows data rate at low rpm
+ini tweaks
+Baro correction exposed by default.
+Aircor correction exposed by default.
+New MAF curve exposing calibration curve.
+ini gauge name changes
+12cyl hardware mod
+
+2012-09-26 JSM
+Custom oddfire angles
+Re-write user interface (and internal) for testmodes to use new TS buttons.
+Add I/O test mode.
+
+2012-09-28 JSM
+Maximum VSS1 for launch
+
+2012-09-29 JSM
+Start of sensor checking.
+
+2012-10-01 JSM
+Serial checks if data page has a valid ram address.
+Fix twin trigger again. (Failed to test after 2012-02-20 change.)
+
+2012-10-02 JSM
+Allow 2cyl with twin trigger.
+
+2012-10-03 JSM
+Fix fan control accidental linkage to A/C
+
+2012-10-06 JSM
+Re-do overdwell code. Spk A-H
+
+2012-10-07 JSM
+Overdwell for spk I-P
+Overdwell for rotary trailing
+
+2012-10-08 JSM
+'k' command for flash (calibration) tables too.
+Allow cam-speed twin trigger
+Fix low speed spark on 'rotary' channels (OVFLO code)
+Boost launch delay looks to have been broken.
+T/C perfect run RPM (untested)
+T/C boost (CL and OL) (bench tested)
+
+2012-10-09 JSM
+Renamed spark output polarity (check your settings!!)
+Extended port status
+More sensor checking / check engine light. (Needs testing on car.)
+
+2012-10-10 JSM
+More sensor checking.
+Limp mode - CLT, MAT, TPS-AE, rev-limit, overboost, retard, EGO, fallback MAP table
+
+2012-10-12 JSM
+Change AE units to 0.01s (makes time more accurate, not just precise.)
+Add optional experimental AE changes. (Debug code still in place.)
+MAP phase detection. (Needs testing on engine.) - !! Be aware of changes to ram4.hardware and possible impact on cam input !!
+revlim soft limit also set in limp mode
+
+2012-10-13 JSM
+tpsdot behaves the old way if experi code when off.
+Cleanup some unused vars in tpsdot calc.
+
+2012-10-14 JSM
+Fix single sample error in MAP on startup.
+Add bitwise AND to spare ports.
+Rename/remove old version of airden curves to eliminate conflict when loading old MSQs.
+
+2012-10-15 JSM
+Don't let boost change port values when feature is first turned on.
+EGT sensor checking
+EGTsafety and AFRsafety set CEL
+Idle valve testing tweak.
+
+2012-10-16 JSM
+Enable timeout on SDcard readback and hopeful minor speedup.
+
+-- Alpha 2 --
+
+2012-10-19 JSM
+Re-arrange variables to avoid stack overflow.
+Add stack overflow check and error message.
+ini fix for MAF calib burning
+Add old style 6pt curve for MAF/MAT
+
+-- Alpha 3 --
+
+2012-10-20 JSM
+Make cp_flash_ram more generic.
+Re-arrange RAM slightly to allow paged RAM variable use.
+Move CEL and XXXdot_data vars to paged RAM
+ini tweaks for testmode
+Delay to CEL checking, EGT fixups, set RPAGE correctly.
+
+2012-10-20 KWC
+Add back boost control initial value table and boost control rearrangement.
+
+2012-10-22 JSM
+Make overrun use FUELCUT setbit.
+Various speedups in RTC.
+Change vss, ss stall timers to 0.1s section.
+Optimised timers in RTC incl VVT, idle.
+Moved PWM idle setting to mainloop.
+Moved IAC step code to millisecond section.
+Small changes to IACmove code.
+
+2012-10-25 JSM
+Fix paged vars corruption (RPAGE getting changed by table lookup)
+Change MAT/CLT table to use airflow as X axis
+
+2012-10-27 JSM
+Implement table blending. Fuel, spark, AFR, boost. (Changes to many table lookups.)
+
+2012-10-29 JSM
+Fix tiny bug in ign_reset that impacted frequency based MAFs and MAPs
+Fix bike shift cut gear time adder
+Disabled unused dual_tble setting. Move LTT code.
+More algorithm tableblending. Change curve units to x1 (not x0.1.) Lots to validate here.
+
+2012-10-31 JSM
+MAP sampling only checks angle when using windowing.
+
+2012-11-01 JSM
+Tweak to crc32 to give same code on 32bit and 64bit assembler.
+
+2012-11-02 JSM
+ini tweaks
+
+2012-11-03 JSM
+Flex fuel fallback.
+Correct order of adding ignition adjustments (blending changed it.)
+Remove some unused variables.
+
+2012-11-03 KWC
+Fix minor issues in boost control. Should work again now.
+Initial value table for boost works.
+Boost control lower limit is now a delta... set it to the amount below the
+target that you want to start controlling boost instead of the absolute
+value.
+
+2012-11-04 JSM
+IOx RTC trim adjustment (from Jean.)
+
+-- Alpha 4 --
+
+2012-11-05 JSM
+Fix idle-advance
+Add two more blend Xaxis options
+ini tweaks
+Fix 6x scaling error in TPSdot calc (was using TPSADC)
+Allow I/O test to control boost, nitrous and other slow-PWM outputs
+Allow I/O pin/ports 'indicators' to display in test mode.
+check_sensors_init was commented.
+CEL TPS max typo
+RPMdot calc
+CL PWM idle - set valve to duty
+
+2012-11-06 JSM
+Re-arrange CUT_FUEL code to calc in one place and be applied in interrupt.
+(Fuel cut rev limiter, overboost FC, overrun FC, flood clear.)
+Change boost timed from launch (and T/C) to use barometer as miniumum.
+Add Traction Control based just on switch. (NB. Re-applies power abruptly.)
+Rail PWMidle to 100% and tweak ini scaling factor.
+Re-write GenPWM output section to use less CPU and support higher frequencies.
+Add BattV as a GenPWM Yaxis option.
+
+-- Alpha 5 --
+
+2012-11-08 JSM
+core.ini and version checking
+
+2012-11-09 JSM
+Generic PWM 0% duty
+Use IdleCtl to avoid "use VSS" interfering.
+Allow MAF reading when RPM==0
+adc_lmms -> uint
+ini tweak for accelpump-AE graph
+Avoid bogus MAFMAP when rpm <5
+MAP phase detection more code and tested ok.
+Reduce after-start pump/stall timeout to 0.5s
+
+2012-11-10 JSM
+Some SSEM tweaks
+Merge InjLED code with tacho in isr_rtc 
+
+-- Alpha 6 --
+
+2012-11-11 JSM
+Add unsigned X axis intrp_1dc for MAFFlow
+boost uses map instead of fuelload and compares to baro instead of fixed 100.0kPa
+
+2012-11-13 JSM
+MAFvolts in 0.001V
+Support frequency MAF more inuitively in TS (ini changes.)
+MAF freq out of range can set fault light. (No other checks or actions yet.)
+Re-arrange timer setup in init to avoid setting flags when no cam input enabled. (Beware fallout.)
+
+2012-11-13 KWC
+Make CL boost work such that higher duty = higher boost.
+
+2012-11-14 JSM
+MAF range scaling. Four ranges 650, 1300, 1950, 2600g/s
+Update some default vales to keep within ini limits.
+
+2012-11-15 JSM
+Allow up to 16kHz on the MAF freq input.
+Create new-style MAF calibrations as partial MSQs.
+
+2012-11-18 JSM
+Add MAF volts/freq to datalog set.
+Re-arrange AE settings in ini.
+Default AE taper to zero.
+Adjust AE value limits in ini.
+Re-arrange some menus.
+
+2012-11-19 JSM
+Change flex defaults slightly.
+WUE < 100% ini setting
+Rename "Miata 99-04" to "Miata 99-05"
+Add support for Zetec VCT V6, V8 (unconfirmed)
+
+2012-11-21 JSM
+Remove unused dual_tble_option
+Add MAF lag factor
+Update temp sensor calibration files to use larger upper temperature.
+
+-- Alpha 7 --
+2012-11-21 JSM
+Rename MAFMAP to MAFload
+
+-- Alpha 7a --
+2012-11-22 JSM
+Add gen1 Viper V10 support (UNTESTED)
+Add more greying to VVT for on/off mode
+Tooltip help.
+
+2012-11-23 JSM
+Remove erroneous code from two Viper modes. Add more diags to gen1
+
+2012-11-25 JSM
+Inj testmode operates as expected with semi-seq.
+More tooltips.
+
+2012-11-26 JSM
+Allow each VVT cam's direction to be controlled.
+More tooltips.
+
+2012-11-27 JSM
+MAT retard now uses 'est intake temp'
+Baro defaults are 100% across the board for no correction.
+
+2012-11-28 JSM
+Tweak Viper-gen1 angles
+
+2012-12-04 JSM
+Tweak Miata 99-05 for Jap spec VVT
+Light CEL at power on.
+Add blended cranking pw%
+Loader tweak for MS3-Pro
+
+2012-12-06 JSM
+Remove some debug code
+
+-- RC 1 --
+
+2012-12-09 JSM
+pwmidle_timer wasn't initialised for steppers
+
+2012-12-11 JSM
+Tweak to version checking.
+Optional spkI/J pins.
+Use *port/pin for "LED" spk A,B
+Batt fault was settings cel_status_tps in error
+Remove some debug code.
+
+2012-12-15 JSM
+ini tweaks
+T/C Slip% knob input
+
+2012-12-16 JSM
+AFRsafety, handle negative TPS and load axis on tuning dialogue.
+ini fix for DF pressure curve label
+
+2012-12-17 JSM
+AFRsafety actively turns off nitrous too. (UNTESTED)
+CEL works for sync-loss
+ini tweaks
+
+-- RC 2 --
+
+2012-12-22 JSM
+ini tweak for 3d ignition table4 greying
+Fix ignition table blending + switching issue.
+Change fault flex%.
+
+-- Branch 1.2 -- 
+
